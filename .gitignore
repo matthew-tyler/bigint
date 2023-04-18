@@ -1,0 +1,11 @@
+# Ignore compilation directories
+./bin
+./obj
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# macOS folder attributes
+__MACOSX/
