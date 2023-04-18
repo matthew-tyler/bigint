@@ -27,8 +27,17 @@ To build and run the program using the provided Makefile, you can use the follow
     ./bin/rational_thinking
     ```
 
-A shorthand for making and running is provided for convenience:
+##### A shorthand for making and running is provided for convenience:
 
 ```bash
 make run
 ```
+
+##### Cleaning up 
+
+To clean the working directory afterwards:
+
+```bash
+make clean
+```
+
