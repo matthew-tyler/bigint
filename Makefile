@@ -4,13 +4,14 @@ CXXFLAGS = -Wall -std=c++17
 SRCDIR = src
 BINDIR = bin
 OBJDIR = obj
+OUTPUTNAME = rational_thinking
 
 # Find all source files in the src directory
 SOURCES = $(wildcard $(SRCDIR)/*.cpp)
 # Generate object file names from the source files
 OBJECTS = $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/%.o, $(SOURCES))
 # Set the name of the output binary
-TARGET = $(BINDIR)/my_program
+TARGET = $(BINDIR)/$(OUTPUTNAME)
 
 # Default target
 all: $(TARGET)
@@ -33,5 +34,9 @@ $(BINDIR):
 # Clean up generated files
 clean:
 	rm -rf $(OBJDIR) $(BINDIR)
+
+# Run the program after making it
+run: all
+	$(TARGET)
 
 .PHONY: all clean

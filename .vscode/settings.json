@@ -13,5 +13,8 @@
         "matplotlib",
         "ndarray",
         "pyplot"
+    ],
+    "cSpell.words": [
+        "cosc"
     ]
 }

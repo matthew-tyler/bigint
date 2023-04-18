@@ -3,6 +3,7 @@
 #ifndef INTEGER_H_INCLUDED
 #define INTEGER_H_INCLUDED
 
+#include <vector>
 #include <iostream>
 #include <string>
 
@@ -38,6 +39,12 @@ namespace cosc326
 
 	private:
 		// Can add internal storage or methods here
+
+		// 1 for positive, -1 for negative. This is to make it easy to flip signs during operations with *sign.
+		int sign;
+		// Digits representing a column, in powers of 10, in reverse order.
+		// That is, digits[0] is the 1s column, digits[1] the 10s etc.
+		std::vector<int> digits;
 	};
 
 	// Binary operators

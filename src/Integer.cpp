@@ -126,6 +126,7 @@ namespace cosc326
 
 	Integer gcd(const Integer &a, const Integer &b)
 	{
+
 		return a;
 	}
 
