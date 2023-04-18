@@ -7,7 +7,9 @@ using namespace cosc326;
 int main(int argc, char const *argv[])
 {
 
-    Integer *test = new Integer();
+    Integer test;
+
+    test + test;
 
     std::cout << "Hello, world!" << std::endl;
 

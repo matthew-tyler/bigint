@@ -1,6 +1,6 @@
 # Ignore compilation directories
-./bin
-./obj
+bin/
+obj/
 
 # macOS system files
 .DS_Store

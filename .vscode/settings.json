@@ -16,5 +16,8 @@
     ],
     "cSpell.words": [
         "cosc"
-    ]
+    ],
+    "files.associations": {
+        "ostream": "cpp"
+    }
 }
