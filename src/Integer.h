@@ -37,33 +37,36 @@ namespace cosc326
 		// You may need to make some other functions friends, but do so sparingly.
 		friend bool operator<(const Integer &lhs, const Integer &rhs);
 
-	private:
-		// Can add internal storage or methods here
+		// Sparingly....
+		// We can either do this or do a more java esque getter for the internal vector
+		friend bool operator>(const Integer &lhs, const Integer &rhs);	// lhs > rhs
+		friend bool operator<=(const Integer &lhs, const Integer &rhs); // lhs <= rhs
+		friend bool operator>=(const Integer &lhs, const Integer &rhs); // lhs >= rhs
+		friend bool operator==(const Integer &lhs, const Integer &rhs); // lhs == rhs
+		friend bool operator!=(const Integer &lhs, const Integer &rhs); // lhs != rhs
 
+		// Binary operators
+		friend Integer operator+(const Integer &lhs, const Integer &rhs); // lhs + rhs;
+		friend Integer operator-(const Integer &lhs, const Integer &rhs); // lhs - rhs;
+		friend Integer operator*(const Integer &lhs, const Integer &rhs); // lhs * rhs;
+		friend Integer operator/(const Integer &lhs, const Integer &rhs); // lhs / rhs;
+		friend Integer operator%(const Integer &lhs, const Integer &rhs); // lhs % rhs;
+
+		friend std::ostream &operator<<(std::ostream &os, const Integer &i); // std::cout << i << std::endl;
+		friend std::istream &operator>>(std::istream &is, Integer &i);		 // std::cin >> i;
+
+		friend Integer gcd(const Integer &a, const Integer &b); // i = gcd(a, b);
+
+		std::string debugPrint();
+
+	private:
 		// 1 for positive, -1 for negative. This is to make it easy to flip signs during operations with *sign.
-		int sign;
+		short sign;
 		// Digits representing a column, in powers of 10, in reverse order.
 		// That is, digits[0] is the 1s column, digits[1] the 10s etc.
-		std::vector<int> digits;
+		std::vector<short> digits;
 	};
 
-	// Binary operators
-	Integer operator+(const Integer &lhs, const Integer &rhs); // lhs + rhs;
-	Integer operator-(const Integer &lhs, const Integer &rhs); // lhs - rhs;
-	Integer operator*(const Integer &lhs, const Integer &rhs); // lhs * rhs;
-	Integer operator/(const Integer &lhs, const Integer &rhs); // lhs / rhs;
-	Integer operator%(const Integer &lhs, const Integer &rhs); // lhs % rhs;
-
-	std::ostream &operator<<(std::ostream &os, const Integer &i); // std::cout << i << std::endl;
-	std::istream &operator>>(std::istream &is, Integer &i);		  // std::cin >> i;
-
-	bool operator>(const Integer &lhs, const Integer &rhs);	 // lhs > rhs
-	bool operator<=(const Integer &lhs, const Integer &rhs); // lhs <= rhs
-	bool operator>=(const Integer &lhs, const Integer &rhs); // lhs >= rhs
-	bool operator==(const Integer &lhs, const Integer &rhs); // lhs == rhs
-	bool operator!=(const Integer &lhs, const Integer &rhs); // lhs != rhs
-
-	Integer gcd(const Integer &a, const Integer &b); // i = gcd(a, b);
 }
 
 #endif
