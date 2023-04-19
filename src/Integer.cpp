@@ -29,6 +29,7 @@ namespace cosc326
 		return Integer(*this);
 	}
 
+	// Start here
 	Integer Integer::operator+() const
 	{
 		return Integer(*this);
@@ -74,6 +75,7 @@ namespace cosc326
 		return lhs;
 	}
 
+	// Start here
 	Integer operator/(const Integer &lhs, const Integer &rhs)
 	{
 		return lhs;
