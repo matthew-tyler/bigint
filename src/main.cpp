@@ -26,18 +26,18 @@ int main(int argc, char const *argv[])
     // How to print / For testing if setup works on new machine
     // std::cout << "Hello, world!" << std::endl;
 
-    Integer test("8777");
+    Integer test("-8777");
     Integer test2("9777");
 
     // std::cout << test.debugPrint() << std::endl;
 
+    short proof = -8777 + 9777;
+
+    test = test + test2;
+
     std::cout << test << std::endl;
 
-    bool compare = test > test2;
-    bool stndComp = 8777 > 9777;
+    std::cout << proof << std::endl;
 
-    std::cout << std::boolalpha << compare << std::endl;
-
-    std::cout << std::boolalpha << stndComp << std::endl;
     return 0;
 }

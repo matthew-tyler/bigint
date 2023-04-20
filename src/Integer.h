@@ -46,7 +46,8 @@ namespace cosc326
 		friend bool operator!=(const Integer &lhs, const Integer &rhs); // lhs != rhs
 
 		// Binary operators
-		friend Integer operator+(const Integer &lhs, const Integer &rhs); // lhs + rhs;
+		// Removed const for testing. Gotta learn how to do right?
+		friend Integer operator+(Integer &lhs, Integer &rhs);			  // lhs + rhs;
 		friend Integer operator-(const Integer &lhs, const Integer &rhs); // lhs - rhs;
 		friend Integer operator*(const Integer &lhs, const Integer &rhs); // lhs * rhs;
 		friend Integer operator/(const Integer &lhs, const Integer &rhs); // lhs / rhs;
@@ -57,6 +58,8 @@ namespace cosc326
 
 		friend Integer gcd(const Integer &a, const Integer &b); // i = gcd(a, b);
 
+		void setDigits(std::vector<short> digits);
+		void setSign(short sign);
 		std::string debugPrint();
 
 	private:
