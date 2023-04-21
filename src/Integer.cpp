@@ -134,39 +134,50 @@ namespace cosc326
 		{
 			// Take the addition of their numbers, multiply the sign so negatives are added correctly
 			// Add the carry from the last addition at the end.
-			short add = (A[i] * A_SIGN) + (B[i] * B_SIGN) + carry;
+			short sum = (A[i] * A_SIGN) + (B[i] * B_SIGN) + carry;
 			// As the carry has been used, set it back to 0
 
 			carry = 0;
 			// Check the absolute value of the addition. If greater than 9, add to the carry and just take the first digit
-			if (abs(add) > 9)
+			if (0 > sum || sum > 9)
 			{
-				add -= 10;
-				carry++;
+				carry = 1 * A_SIGN * B_SIGN;
 			}
 
-			A[i] = abs(add);
+			printf("A: %hd B: %hd Carry: %hd Sum: %hd ", A[i], B[i], carry, sum);
+
+			A[i] = (sum + 10) % 10;
+
+			printf("Mod: %hd\n", A[i]);
 		}
 
 		size_t index = B.size();
+
 		while (carry != 0)
 		{
-			short add = A[index] + carry;
+			short add = (A[index] * A_SIGN) + carry;
 
-			if (abs(add) > 9)
+			printf("add: %hd carry: %hd\n", add, carry);
+
+			carry = 0;
+
+			if (0 > add || add > 9)
 			{
-				add /= 10;
-				carry++;
+				carry = 1 * A_SIGN * B_SIGN;
 			}
 
 			if (index < A.size())
 			{
-				A[index] = add;
+
+				A[index] = (add + 10) % 10;
 			}
 			else
 			{
-				A.push_back(add);
+				A.push_back((add + 10) % 10);
 			}
+
+			printf("Mod: %hd\n", A[index]);
+			index++;
 		}
 
 		lhs.digits = A;
