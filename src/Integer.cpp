@@ -14,7 +14,6 @@ namespace cosc326
 
 	Integer::Integer(const Integer &i)
 	{
-		// should have just done getters for the digits and signs.
 	}
 
 	Integer::Integer(const std::string &s)
@@ -39,10 +38,31 @@ namespace cosc326
 		}
 	}
 
+	Integer::Integer(const short sign, const std::vector<short> digits) : sign(sign), digits(digits)
+	{
+	}
+
 	Integer::~Integer()
 	{
 	}
 
+	bool absGreaterThan(const std::vector<short> &lhs, const std::vector<short> &rhs)
+	{
+		if (lhs.size() < rhs.size())
+		{
+			return false;
+		}
+
+		for (size_t i = lhs.size() - 1; i >= 0; --i)
+		{
+			if (lhs[i] > rhs[i])
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
 	Integer &Integer::operator=(const Integer &i)
 	{
 		return *this;
@@ -85,14 +105,14 @@ namespace cosc326
 		return *this;
 	}
 
-	void Integer::setDigits(std::vector<short> digits)
+	std::vector<short> Integer::getDigits() const
 	{
-		this->digits = digits;
+		return this->digits;
 	}
 
-	void Integer::setSign(short sign)
+	short Integer::getSign() const
 	{
-		this->sign = sign;
+		return this->sign;
 	}
 
 	std::string Integer::debugPrint()
@@ -118,15 +138,42 @@ namespace cosc326
 	}
 
 	// Start here
-	Integer operator+(Integer &lhs, Integer &rhs)
+	Integer operator+(const Integer &lhs, const Integer &rhs)
 	{
 
-		// This could be a lot cleaner. Just setting it so that A is the larger of the two
-		std::vector<short> A = (lhs.digits.size() > rhs.digits.size()) ? lhs.digits : rhs.digits;
-		short A_SIGN = (lhs.digits.size() > rhs.digits.size()) ? lhs.sign : rhs.sign;
+		std::vector<short> A = lhs.getDigits();
+		short A_SIGN = lhs.getSign();
 
-		std::vector<short> B = (lhs.digits.size() > rhs.digits.size()) ? rhs.digits : lhs.digits;
-		short B_SIGN = (lhs.digits.size() > rhs.digits.size()) ? rhs.sign : lhs.sign;
+		std::vector<short> B = rhs.getDigits();
+		short B_SIGN = rhs.getSign();
+
+		short result_sign = 1;
+
+		if (absGreaterThan(rhs, lhs)) // |lhs| > |rhs|
+		{
+			A = rhs.getDigits();
+			A_SIGN = rhs.getSign();
+
+			B = lhs.getDigits();
+			B_SIGN = lhs.getSign();
+		}
+
+		if (A_SIGN != B_SIGN)
+		{
+			if ((A_SIGN == -1 && absGreaterThan(A, B)) || (B_SIGN == -1 && absGreaterThan(B, A)))
+			{
+				A_SIGN = lhs.getSign() * -1;
+				B_SIGN = rhs.getSign() * -1;
+
+				result_sign = -1;
+			}
+		}
+		else if (A_SIGN == -1 && B_SIGN == -1)
+		{
+			A_SIGN = 1;
+			B_SIGN = 1;
+			result_sign = -1;
+		}
 
 		short carry = 0;
 
@@ -134,7 +181,7 @@ namespace cosc326
 		{
 			// Take the addition of their numbers, multiply the sign so negatives are added correctly
 			// Add the carry from the last addition at the end.
-			short sum = (A[i] * A_SIGN) + (B[i] * B_SIGN) + carry;
+			short sum = (A[i] * A_SIGN) + ((B[i] * B_SIGN) + carry);
 			// As the carry has been used, set it back to 0
 
 			carry = 0;
@@ -144,11 +191,7 @@ namespace cosc326
 				carry = 1 * A_SIGN * B_SIGN;
 			}
 
-			printf("A: %hd B: %hd Carry: %hd Sum: %hd ", A[i], B[i], carry, sum);
-
 			A[i] = (sum + 10) % 10;
-
-			printf("Mod: %hd\n", A[i]);
 		}
 
 		size_t index = B.size();
@@ -156,8 +199,6 @@ namespace cosc326
 		while (carry != 0)
 		{
 			short add = (A[index] * A_SIGN) + carry;
-
-			printf("add: %hd carry: %hd\n", add, carry);
 
 			carry = 0;
 
@@ -176,13 +217,12 @@ namespace cosc326
 				A.push_back((add + 10) % 10);
 			}
 
-			printf("Mod: %hd\n", A[index]);
 			index++;
 		}
 
-		lhs.digits = A;
+		Integer output(result_sign, A);
 
-		return lhs;
+		return output;
 	}
 
 	Integer operator-(const Integer &lhs, const Integer &rhs)
@@ -291,6 +331,25 @@ namespace cosc326
 	{
 
 		return a;
+	}
+
+	bool absGreaterThan(const Integer &lhs, const Integer &rhs)
+	{
+
+		if (lhs.digits.size() < rhs.digits.size())
+		{
+			return false;
+		}
+
+		for (size_t i = lhs.digits.size() - 1; i >= 0; --i)
+		{
+			if (lhs.digits[i] > rhs.digits[i])
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }

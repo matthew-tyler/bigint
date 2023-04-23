@@ -18,6 +18,8 @@ namespace cosc326
 		Integer(const Integer &i);	   // Integer j(i);
 		Integer(const std::string &s); // Integer k("123");
 
+		Integer(const short sign, const std::vector<short> digits); //
+
 		~Integer();
 
 		Integer &operator=(const Integer &i); // j = i;
@@ -47,7 +49,7 @@ namespace cosc326
 
 		// Binary operators
 		// Removed const for testing. Gotta learn how to do right?
-		friend Integer operator+(Integer &lhs, Integer &rhs);			  // lhs + rhs;
+		friend Integer operator+(const Integer &lhs, const Integer &rhs); // lhs + rhs;
 		friend Integer operator-(const Integer &lhs, const Integer &rhs); // lhs - rhs;
 		friend Integer operator*(const Integer &lhs, const Integer &rhs); // lhs * rhs;
 		friend Integer operator/(const Integer &lhs, const Integer &rhs); // lhs / rhs;
@@ -58,8 +60,11 @@ namespace cosc326
 
 		friend Integer gcd(const Integer &a, const Integer &b); // i = gcd(a, b);
 
-		void setDigits(std::vector<short> digits);
-		void setSign(short sign);
+		friend bool absGreaterThan(const Integer &lhs, const Integer &rhs); // |A| > |B|;
+		friend bool absGreaterThan(const std::vector<short> &lhs, const std::vector<short> &rhs);
+
+		std::vector<short> getDigits() const;
+		short getSign() const;
 		std::string debugPrint();
 
 	private:
