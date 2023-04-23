@@ -63,21 +63,27 @@ namespace cosc326
 
 		return false;
 	}
+
 	Integer &Integer::operator=(const Integer &i)
 	{
+		if (this != &i)
+		{
+			this->sign = i.getSign();
+			this->digits = i.getDigits();
+		}
 		return *this;
 	}
 
 	// This but flip the sign bit?
 	Integer Integer::operator-() const
 	{
-		return Integer(*this);
+		return Integer(-1, this->getDigits());
 	}
 
 	// Wrong plus
 	Integer Integer::operator+() const
 	{
-		return Integer(*this);
+		return Integer(1, this->getDigits());
 	}
 
 	Integer &Integer::operator+=(const Integer &i)
