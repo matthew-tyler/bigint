@@ -59,6 +59,10 @@ namespace cosc326
 			{
 				return true;
 			}
+			if (lhs[i] < rhs[i])
+			{
+				return false;
+			}
 		}
 
 		return false;
@@ -155,6 +159,8 @@ namespace cosc326
 
 		short result_sign = 1;
 
+		// bool abstest = absGreaterThan(rhs, lhs);
+		// std::cout << std::boolalpha << abstest << std::endl;
 		if (absGreaterThan(rhs, lhs)) // |lhs| > |rhs|
 		{
 			A = rhs.getDigits();
@@ -168,8 +174,8 @@ namespace cosc326
 		{
 			if ((A_SIGN == -1 && absGreaterThan(A, B)) || (B_SIGN == -1 && absGreaterThan(B, A)))
 			{
-				A_SIGN = lhs.getSign() * -1;
-				B_SIGN = rhs.getSign() * -1;
+				A_SIGN = A_SIGN * -1;
+				B_SIGN = B_SIGN * -1;
 
 				result_sign = -1;
 			}
@@ -227,11 +233,15 @@ namespace cosc326
 		}
 
 		// In case where the most significant digit is 0, sets it to a positive 0.
-		if (A.back() == 0)
+		while (A.back() == 0)
 		{
-			A.clear();
-			A.push_back(0);
-			result_sign = 1;
+			A.pop_back();
+			if (A.empty())
+			{
+				A.push_back(0);
+				result_sign = 1;
+				break;
+			}
 		}
 		Integer output(result_sign, A);
 
@@ -315,6 +325,11 @@ namespace cosc326
 			{
 				return true;
 			}
+
+			if (lhs.digits[i] < rhs.digits[i])
+			{
+				return false;
+			}
 		}
 
 		return false;
@@ -359,6 +374,11 @@ namespace cosc326
 			if (lhs.getDigits()[i] > rhs.getDigits()[i])
 			{
 				return true;
+			}
+
+			if (lhs.getDigits()[i] < rhs.getDigits()[i])
+			{
+				return false;
 			}
 		}
 

@@ -2,6 +2,9 @@
 bin/
 obj/
 
+# Ignore Proof Of Concept
+java/
+
 # macOS system files
 .DS_Store
 .AppleDouble

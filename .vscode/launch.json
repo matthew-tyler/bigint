@@ -2,6 +2,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "ArrayAdditionPOC",
+            "request": "launch",
+            "mainClass": "ArrayAdditionPOC",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "ArrayAdditionPOC",
+            "request": "launch",
+            "mainClass": "rational_thinking.ArrayAdditionPOC",
+            "projectName": ""
+        },
+        {
             "name": "Run",
             "type": "cppdbg",
             "request": "launch",
