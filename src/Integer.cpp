@@ -74,13 +74,11 @@ namespace cosc326
 		return *this;
 	}
 
-	// This but flip the sign bit?
 	Integer Integer::operator-() const
 	{
 		return Integer(-1, this->getDigits());
 	}
 
-	// Wrong plus
 	Integer Integer::operator+() const
 	{
 		return Integer(1, this->getDigits());
@@ -88,14 +86,13 @@ namespace cosc326
 
 	Integer &Integer::operator+=(const Integer &i)
 	{
-
 		*this = *this + i;
-
 		return *this;
 	}
 
 	Integer &Integer::operator-=(const Integer &i)
 	{
+		*this = *this - i;
 		return *this;
 	}
 
@@ -229,6 +226,13 @@ namespace cosc326
 			index++;
 		}
 
+		// In case where the most significant digit is 0, sets it to a positive 0.
+		if (A.back() == 0)
+		{
+			A.clear();
+			A.push_back(0);
+			result_sign = 1;
+		}
 		Integer output(result_sign, A);
 
 		return output;
@@ -236,7 +240,7 @@ namespace cosc326
 
 	Integer operator-(const Integer &lhs, const Integer &rhs)
 	{
-		return lhs;
+		return lhs + -rhs;
 	}
 
 	Integer operator*(const Integer &lhs, const Integer &rhs)
@@ -352,7 +356,7 @@ namespace cosc326
 
 		for (size_t i = lhs.digits.size() - 1; i >= 0; --i)
 		{
-			if (lhs.digits[i] > rhs.digits[i])
+			if (lhs.getDigits()[i] > rhs.getDigits()[i])
 			{
 				return true;
 			}

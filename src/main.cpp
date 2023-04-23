@@ -10,14 +10,14 @@ int main(int argc, char const *argv[])
     // std::cout << "Hello, world!" << std::endl;
 
     Integer test("20");
-    Integer test2("-8");
+    Integer test2("-20");
 
     // std::cout << test.debugPrint() << std::endl;
 
-    int proof = 20 + 8;
+    int proof = 20 - 8;
 
     Integer output = test + test2;
-    // test += test;
+
     // std::cout << output.debugPrint() << std::endl;
 
     std::cout << test << std::endl;
