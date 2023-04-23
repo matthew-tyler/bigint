@@ -88,6 +88,9 @@ namespace cosc326
 
 	Integer &Integer::operator+=(const Integer &i)
 	{
+
+		*this = *this + i;
+
 		return *this;
 	}
 

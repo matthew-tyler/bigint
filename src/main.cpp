@@ -17,7 +17,7 @@ int main(int argc, char const *argv[])
     int proof = 20 + 8;
 
     Integer output = test + test2;
-    test = test + test2;
+    // test += test;
     // std::cout << output.debugPrint() << std::endl;
 
     std::cout << test << std::endl;

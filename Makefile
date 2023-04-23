@@ -1,6 +1,8 @@
+
 # Variables
 CXX = g++
 CXXFLAGS = -Wall -std=c++17
+DEBUGFLAGS = -g
 SRCDIR = src
 BINDIR = bin
 OBJDIR = obj
@@ -39,4 +41,8 @@ clean:
 run: all
 	$(TARGET)
 
-.PHONY: all clean
+# Debug target
+debug: CXXFLAGS += $(DEBUGFLAGS)
+debug: all
+
+.PHONY: all clean debug
