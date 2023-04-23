@@ -87,12 +87,12 @@ namespace cosc326
 
 	Integer Integer::operator-() const
 	{
-		return Integer(-1, this->getDigits());
+		return Integer(this->sign * -1, this->getDigits());
 	}
 
 	Integer Integer::operator+() const
 	{
-		return Integer(1, this->getDigits());
+		return Integer(this->getSign(), this->getDigits());
 	}
 
 	Integer &Integer::operator+=(const Integer &i)
