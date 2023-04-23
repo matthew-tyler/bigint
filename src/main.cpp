@@ -9,7 +9,11 @@ void test(const std::string &num1, const std::string &num2, char op)
 
     Integer a(num1);
     Integer b(num2);
-    Integer result;
+    Integer result("0");
+
+    // std::cerr << a << " " << op << " " << b << std::endl;
+
+    // std::cerr << result << std::endl;
 
     switch (op)
     {
@@ -68,17 +72,22 @@ int main(int argc, char const *argv[])
         return 0;
     }
 
-    Integer test("-5382261");
-    Integer test2("4994794");
-
-    // std::cout << test.debugPrint() << std::endl;
-
-    std::cout << test << " + " << test2 << std::endl;
-
-    Integer output = test + test2;
-
-    // std::cout << output.debugPrint() << std::endl;
+    Integer t("24315786");
+    Integer t2("-381092136");
+    std::cout << t << " + " << t2 << std::endl;
+    Integer output = t + t2;
     std::cout << output << std::endl;
 
+    t = Integer("54081814");
+    t2 = Integer("-996583778");
+    std::cout << t << " + " << t2 << std::endl;
+    output = t + t2;
+    std::cout << output << std::endl;
+
+    t = Integer("24315786");
+    t2 = Integer("-381092136");
+    std::cout << t << " + " << t2 << std::endl;
+    output = t + t2;
+    std::cout << output << std::endl;
     return 0;
 }

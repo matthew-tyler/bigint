@@ -1,4 +1,3 @@
-
 # Variables
 CXX = g++
 CXXFLAGS = -Wall -std=c++17
@@ -7,6 +6,7 @@ SRCDIR = src
 BINDIR = bin
 OBJDIR = obj
 OUTPUTNAME = rational_thinking
+VALGRIND_FLAGS = --leak-check=full --show-leak-kinds=all 
 
 # Find all source files in the src directory
 SOURCES = $(wildcard $(SRCDIR)/*.cpp)
@@ -41,8 +41,16 @@ clean:
 run: all
 	$(TARGET)
 
+# Run the program after making it
+test: all
+	$(TARGET) test
+
 # Debug target
 debug: CXXFLAGS += $(DEBUGFLAGS)
 debug: all
 
-.PHONY: all clean debug
+# Valgrind target
+valgrind: all
+	valgrind $(VALGRIND_FLAGS) $(TARGET)
+
+.PHONY: all clean debug valgrind

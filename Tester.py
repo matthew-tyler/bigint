@@ -17,14 +17,13 @@ CMD = "test"
 OPPERAND = "+"
 
 # Number of test cases
-num_tests = 1000
+num_tests = 100
 
 # Generate random numbers for the test cases
-test_cases = [(random.randint(-10000000, 10000000), random.randint(-10000000, 10000000)) for _ in range(num_tests)]
+test_cases = [(random.randint(-1000000000, 1000000000), random.randint(-1000000000, 1000000000)) for _ in range(num_tests)]
 
 
 answers = []
-
 
 input_data = f""
 for num1, num2 in test_cases:
@@ -51,7 +50,7 @@ if process.returncode == 0:
     for i, (cpp_output, answer) in enumerate(zip(cpp_output_lines, answers)):
         if int(cpp_output) != answer:
             all_correct = False
-            print(f"Test case {i}: {test_cases[i][0]} {OPPERAND} {test_cases[i][1]} != {cpp_output}")
+            print(f"Test case {i}: {test_cases[i][0]} {OPPERAND} {test_cases[i][1]} != {cpp_output}, should be {answer}")
     
     if all_correct:
         print("PASS")

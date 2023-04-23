@@ -14,6 +14,8 @@ namespace cosc326
 
 	Integer::Integer(const Integer &i)
 	{
+		this->sign = i.sign;
+		this->digits = i.digits;
 	}
 
 	Integer::Integer(const std::string &s)
@@ -27,7 +29,7 @@ namespace cosc326
 			this->sign = -1;
 		}
 
-		for (int i = s.length(); i >= 0; i--)
+		for (int i = s.length() - 1; i >= 0; i--)
 		{
 			short digit = s[i] - digit_offset;
 
@@ -51,6 +53,11 @@ namespace cosc326
 		if (lhs.size() < rhs.size())
 		{
 			return false;
+		}
+
+		if (lhs.size() > rhs.size())
+		{
+			return true;
 		}
 
 		for (size_t i = lhs.size() - 1; i >= 0; --i)
@@ -159,8 +166,6 @@ namespace cosc326
 
 		short result_sign = 1;
 
-		// bool abstest = absGreaterThan(rhs, lhs);
-		// std::cout << std::boolalpha << abstest << std::endl;
 		if (absGreaterThan(rhs, lhs)) // |lhs| > |rhs|
 		{
 			A = rhs.getDigits();
@@ -208,10 +213,26 @@ namespace cosc326
 
 		size_t index = B.size();
 
+		// for (const auto &val : A)
+		// {
+		// 	std::cout << val << ' ';
+		// }
+		// std::cout << std::endl;
+
 		while (carry != 0)
 		{
-			short add = (A[index] * A_SIGN) + carry;
 
+			short add;
+			if (index < A.size())
+			{
+				add = (A[index] * A_SIGN) + carry;
+			}
+			else
+			{
+				add = (0 * A_SIGN) + carry;
+			}
+
+			// std::cout << add << std::endl;
 			carry = 0;
 
 			if (0 > add || add > 9)
@@ -221,7 +242,6 @@ namespace cosc326
 
 			if (index < A.size())
 			{
-
 				A[index] = (add + 10) % 10;
 			}
 			else
@@ -369,8 +389,14 @@ namespace cosc326
 			return false;
 		}
 
+		if (lhs.digits.size() > rhs.digits.size())
+		{
+			return true;
+		}
+
 		for (size_t i = lhs.digits.size() - 1; i >= 0; --i)
 		{
+
 			if (lhs.getDigits()[i] > rhs.getDigits()[i])
 			{
 				return true;
