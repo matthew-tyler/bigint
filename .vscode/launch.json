@@ -3,6 +3,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Modulus_testing",
+            "request": "launch",
+            "mainClass": "Modulus_testing",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "array_padding",
+            "request": "launch",
+            "mainClass": "array_padding",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "ArrayAdditionPOC",
             "request": "launch",
             "mainClass": "ArrayAdditionPOC",
