@@ -87,6 +87,8 @@ namespace cosc326
 
 		static std::vector<Integer> divideInternal(const Integer &numerator, const Integer &denominator);
 		static std::vector<Integer> divide(const Integer &numerator, const Integer &denominator);
+
+		static Integer multiplicationInternal(const Integer &num, short multiplier, size_t numTens);
 	};
 
 }

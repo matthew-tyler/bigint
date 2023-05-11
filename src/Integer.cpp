@@ -174,8 +174,6 @@ namespace cosc326
 
 		while (remainder > Integer("0"))
 		{
-
-			// std::cout << "remainder: " << remainder << " denom: " << denominator << std::endl;
 			remainder = remainder - denominator;
 
 			if (remainder >= Integer("0"))
@@ -226,13 +224,6 @@ namespace cosc326
 				}
 				currMod.insert(currMod.begin(), ins);
 			}
-
-			// for (auto elem : currMod)
-			// {
-			// 	std::cout << elem << " ";
-			// }
-
-			// std::cout << std::endl;
 		}
 
 		if (answer.empty())
@@ -363,10 +354,53 @@ namespace cosc326
 	{
 		return lhs + -rhs;
 	}
+	Integer Integer::multiplicationInternal(const Integer &num, short multiplier, size_t numTens)
+	{
+		Integer answer("0");
+
+		if (multiplier != 0)
+		{
+			for (short i = 0; i < multiplier; i++)
+			{
+				answer = answer + num;
+			}
+
+			for (size_t i = 0; i < numTens; i++)
+			{
+				// answer.digits.push_back(0);
+				answer.digits.insert(answer.digits.begin(), 0);
+			}
+		}
+
+		return answer;
+	}
 
 	Integer operator*(const Integer &lhs, const Integer &rhs)
 	{
-		return lhs;
+
+		Integer result("0");
+		Integer num(1, lhs.getDigits());
+		Integer multiplier(1, rhs.getDigits());
+
+		if (num < multiplier)
+		{
+			num = Integer(1, rhs.getDigits());
+			multiplier = Integer(1, lhs.getDigits());
+		}
+
+		short numOriginalSign = lhs.sign;
+		short multiplierOriginalSign = rhs.sign;
+
+		for (size_t i = 0; i < multiplier.digits.size(); i++)
+		{
+			result = result + Integer::multiplicationInternal(num, multiplier.digits[i], i);
+		}
+
+		num.sign = numOriginalSign;
+		multiplier.sign = multiplierOriginalSign;
+
+		result.sign = num.sign * multiplier.sign;
+		return result;
 	}
 
 	// Start here

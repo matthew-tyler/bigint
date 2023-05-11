@@ -72,10 +72,10 @@ int main(int argc, char const *argv[])
         return 0;
     }
 
-    Integer t("734720473");
-    Integer t2("5");
-    // 150
-    Integer output = t / t2;
+    Integer t("454911272");
+    Integer t2("671377");
+    // 30541696506154
+    Integer output = t * t2;
 
     std::cout << output << std::endl;
 
