@@ -15,7 +15,7 @@ else:
 
 PROGRAM = "./bin/rational_thinking"
 CMD = "test"
-OPPERAND = "/"
+OPPERAND = "%"
 
 # Number of test cases
 num_tests = 100
@@ -40,6 +40,8 @@ for num1, num2 in test_cases:
             answers.append(num1 // num2)
         case "*":
             answers.append(num1 * num2)
+        case "%":
+            answers.append(num1 % num2)
 
 
 process = subprocess.Popen([PROGRAM, CMD], stdin=subprocess.PIPE,

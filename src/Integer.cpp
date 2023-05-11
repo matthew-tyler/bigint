@@ -378,7 +378,7 @@ namespace cosc326
 
 	Integer operator%(const Integer &lhs, const Integer &rhs)
 	{
-		return lhs;
+		return Integer::divide(lhs, rhs)[1];
 	}
 
 	std::ostream &operator<<(std::ostream &os, const Integer &i)
