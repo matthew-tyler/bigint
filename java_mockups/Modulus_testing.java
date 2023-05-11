@@ -1,7 +1,7 @@
 public class Modulus_testing {
     public static void main(String[] args) {
-        int dividend = -26;
-        int divisor = 5;
+        int dividend = -21;
+        int divisor = 4;
 
         int modulus = modulus(dividend, divisor);
         System.out.println("Modulus: " + modulus);

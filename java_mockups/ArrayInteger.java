@@ -138,6 +138,11 @@ public class ArrayInteger {
         numerator.sign = numeratorOriginalSign;
         denominator.sign = denominatorOriginalSign;
 
+        // checking to see if the division should be 0
+        if (answer.length() == 0) {
+            answer = "0";
+        }
+
         ArrayInteger result = new ArrayInteger(answer);
         result.sign = numerator.sign * denominator.sign;
         return result;
@@ -182,7 +187,14 @@ public class ArrayInteger {
         denominator.sign = denominatorOriginalSign;
 
         ArrayInteger result = new ArrayInteger(currMod);
-        result.sign = numerator.sign * denominator.sign;
+        // result.sign = numerator.sign * denominator.sign;
+        // determine whether the mod will be +ve or negative based on the sign of the
+        // numerator
+        if (numerator.sign == -1) {
+            result.sign = -1;
+        } else {
+            result.sign = 1;
+        }
         return result;
 
     }
