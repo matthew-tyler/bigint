@@ -219,12 +219,6 @@ public class ArrayInteger {
     }
 
     public static ArrayInteger multiplication(ArrayInteger num, ArrayInteger multiplier) {
-        int numOriginalSign = num.sign;
-        int multiplierOriginalSign = multiplier.sign;
-
-        // setting both to 1 to ensure normal multiplication - will switch back after
-        num.sign = 1;
-        multiplier.sign = 1;
 
         ArrayInteger result = new ArrayInteger("0"); // start the result as 0 and keep adding the results of multiplying
                                                      // each part
@@ -235,6 +229,13 @@ public class ArrayInteger {
         if (multiplier.isLargerThan(num)) {
             return multiplication(multiplier, num);
         }
+
+        int numOriginalSign = num.sign;
+        int multiplierOriginalSign = multiplier.sign;
+
+        // setting both to 1 to ensure normal multiplication - will switch back after
+        num.sign = 1;
+        multiplier.sign = 1;
 
         for (int i = 0; i < multiplier.digits.size(); i++) {
             result = ArrayInteger.add(result, ArrayInteger.multiplicationInternal(num, multiplier.digits.get(i), i));
