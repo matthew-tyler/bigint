@@ -50,7 +50,7 @@ debug: CXXFLAGS += $(DEBUGFLAGS)
 debug: all
 
 # Valgrind target
-valgrind: all
+valgrind: debug
 	valgrind $(VALGRIND_FLAGS) $(TARGET)
 
 .PHONY: all clean debug valgrind

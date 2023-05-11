@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iostream>
 #include <cstdlib>
+#include <algorithm>
 
 namespace cosc326
 {
@@ -14,8 +15,8 @@ namespace cosc326
 
 	Integer::Integer(const Integer &i)
 	{
-		this->sign = i.sign;
-		this->digits = i.digits;
+		this->sign = i.getSign();
+		this->digits = i.getDigits();
 	}
 
 	Integer::Integer(const std::string &s)
@@ -50,25 +51,17 @@ namespace cosc326
 
 	bool absGreaterThan(const std::vector<short> &lhs, const std::vector<short> &rhs)
 	{
-		if (lhs.size() < rhs.size())
+
+		if (lhs.size() != rhs.size())
 		{
-			return false;
+			return lhs.size() > rhs.size();
 		}
 
-		if (lhs.size() > rhs.size())
+		for (size_t i = lhs.size() - 1; i < lhs.size(); --i)
 		{
-			return true;
-		}
-
-		for (size_t i = lhs.size() - 1; i >= 0; --i)
-		{
-			if (lhs[i] > rhs[i])
+			if (lhs[i] != rhs[i])
 			{
-				return true;
-			}
-			if (lhs[i] < rhs[i])
-			{
-				return false;
+				return lhs[i] > rhs[i];
 			}
 		}
 
@@ -85,6 +78,26 @@ namespace cosc326
 		return *this;
 	}
 
+	Integer &Integer::operator++()
+	{
+		return *this;
+	}
+
+	Integer Integer::operator++(int)
+	{
+		return *this + Integer("1");
+	}
+
+	Integer &Integer::operator--()
+	{
+		return *this;
+	}
+
+	Integer Integer::operator--(int)
+	{
+		return *this - Integer("1");
+	}
+
 	Integer Integer::operator-() const
 	{
 		return Integer(this->sign * -1, this->getDigits());
@@ -92,7 +105,7 @@ namespace cosc326
 
 	Integer Integer::operator+() const
 	{
-		return Integer(this->getSign(), this->getDigits());
+		return *this;
 	}
 
 	Integer &Integer::operator+=(const Integer &i)
@@ -154,6 +167,92 @@ namespace cosc326
 		return debugString.str();
 	}
 
+	std::vector<Integer> Integer::divideInternal(const Integer &numerator, const Integer &denominator)
+	{
+		Integer i("0");
+		Integer remainder(numerator);
+
+		while (remainder > Integer("0"))
+		{
+
+			// std::cout << "remainder: " << remainder << " denom: " << denominator << std::endl;
+			remainder = remainder - denominator;
+
+			if (remainder >= Integer("0"))
+			{
+				i = i + Integer("1");
+			}
+		}
+
+		if (remainder != Integer("0"))
+		{
+			remainder = remainder + denominator;
+		}
+		return {i, remainder};
+	}
+
+	std::vector<Integer> Integer::divide(const Integer &numerator, const Integer &denominator)
+	{
+
+		std::vector<short> answer;
+		std::vector<short> currMod = {numerator.getDigits().back()};
+
+		short numeratorOriginalSign = numerator.sign;
+		short denominatorOriginalSign = denominator.sign;
+
+		Integer currentNumerator;
+		Integer currentDenominator = Integer(1, denominator.getDigits());
+
+		for (int i = numerator.digits.size() - 2; i >= -1; i--)
+		{
+			currentNumerator = Integer(1, currMod);
+			std::vector<Integer> division = divideInternal(currentNumerator, currentDenominator);
+
+			if (!(division[0] == Integer("0") && answer.empty()))
+			{
+				answer.insert(answer.end(), division[0].digits.begin(), division[0].digits.end());
+			}
+
+			currMod = division[1].getDigits();
+
+			if (i >= 0)
+			{
+				short ins = numerator.digits[i];
+
+				if (currMod.back() == 0)
+				{
+					answer.push_back(0);
+					currMod.pop_back();
+				}
+				currMod.insert(currMod.begin(), ins);
+			}
+
+			// for (auto elem : currMod)
+			// {
+			// 	std::cout << elem << " ";
+			// }
+
+			// std::cout << std::endl;
+		}
+
+		if (answer.empty())
+		{
+			answer.push_back(0);
+		}
+
+		short resultsign = numeratorOriginalSign * denominatorOriginalSign;
+		std::reverse(answer.begin(), answer.end());
+
+		Integer out = Integer(resultsign, answer);
+
+		if (resultsign == -1)
+		{
+			out = out - Integer("1");
+		}
+
+		return {out, Integer(1, currMod)};
+	}
+
 	// Start here
 	Integer operator+(const Integer &lhs, const Integer &rhs)
 	{
@@ -213,12 +312,6 @@ namespace cosc326
 
 		size_t index = B.size();
 
-		// for (const auto &val : A)
-		// {
-		// 	std::cout << val << ' ';
-		// }
-		// std::cout << std::endl;
-
 		while (carry != 0)
 		{
 
@@ -231,8 +324,6 @@ namespace cosc326
 			{
 				add = (0 * A_SIGN) + carry;
 			}
-
-			// std::cout << add << std::endl;
 			carry = 0;
 
 			if (0 > add || add > 9)
@@ -281,7 +372,8 @@ namespace cosc326
 	// Start here
 	Integer operator/(const Integer &lhs, const Integer &rhs)
 	{
-		return lhs;
+
+		return Integer::divide(lhs, rhs)[0];
 	}
 
 	Integer operator%(const Integer &lhs, const Integer &rhs)
@@ -316,39 +408,22 @@ namespace cosc326
 
 	bool operator>(const Integer &lhs, const Integer &rhs)
 	{
-		// If left hand sign is negative, must be less.
-		if (lhs.sign < rhs.sign)
+
+		if (lhs.sign != rhs.sign)
 		{
-			return false;
+			return lhs.sign == 1;
 		}
 
-		// If lhs sign is larger must be true;
-		if (lhs.sign > rhs.sign)
+		if (lhs.digits.size() != rhs.digits.size())
 		{
-			return true;
+			return (lhs.sign == 1 && lhs.digits.size() > rhs.digits.size()) || (lhs.sign == -1 && lhs.digits.size() < rhs.digits.size());
 		}
 
-		// If they're negative numbers, the lhs has more digits must be false;
-		if (lhs.sign == -1 && lhs.digits.size() > rhs.digits.size())
+		for (size_t i = lhs.digits.size() - 1; i < lhs.digits.size(); --i)
 		{
-			return false;
-		}
-		// If they're positive numbers, the lhs has fewer digits must be false;
-		if (lhs.digits.size() < rhs.digits.size())
-		{
-			return false;
-		}
-
-		for (size_t i = lhs.digits.size() - 1; i >= 0; --i)
-		{
-			if (lhs.digits[i] > rhs.digits[i])
+			if (lhs.digits[i] != rhs.digits[i])
 			{
-				return true;
-			}
-
-			if (lhs.digits[i] < rhs.digits[i])
-			{
-				return false;
+				return (lhs.sign == 1 && lhs.digits[i] > rhs.digits[i]) || (lhs.sign == -1 && lhs.digits[i] < rhs.digits[i]);
 			}
 		}
 
@@ -383,28 +458,16 @@ namespace cosc326
 
 	bool absGreaterThan(const Integer &lhs, const Integer &rhs)
 	{
-
-		if (lhs.digits.size() < rhs.digits.size())
+		if (lhs.digits.size() != rhs.digits.size())
 		{
-			return false;
+			return lhs.digits.size() > rhs.digits.size();
 		}
 
-		if (lhs.digits.size() > rhs.digits.size())
+		for (size_t i = lhs.digits.size() - 1; i < lhs.digits.size(); --i)
 		{
-			return true;
-		}
-
-		for (size_t i = lhs.digits.size() - 1; i >= 0; --i)
-		{
-
-			if (lhs.getDigits()[i] > rhs.getDigits()[i])
+			if (lhs.digits[i] != rhs.digits[i])
 			{
-				return true;
-			}
-
-			if (lhs.getDigits()[i] < rhs.getDigits()[i])
-			{
-				return false;
+				return lhs.digits[i] > rhs.digits[i];
 			}
 		}
 

@@ -1,3 +1,4 @@
+package rational_thinking;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -80,14 +81,14 @@ public class ArrayInteger {
         return false;
     }
 
-    public static ArrayInteger[] divideInternal(ArrayInteger numerator, ArrayInteger denominator) {
-        ArrayInteger i = new ArrayInteger("0");
+    public static int[] divideInternal(ArrayInteger numerator, ArrayInteger denominator) {
+        int i = 0;
         ArrayInteger remainder = new ArrayInteger(numerator.toString());
         while (remainder.isLargerThan(new ArrayInteger("0"))) {
             remainder = ArrayInteger.subtract(remainder, denominator); // take the demon from the remainder
             // System.out.println("remainder: "+remainder.toString());
             if (remainder.isLargerThan(new ArrayInteger("0")) || remainder.isEqualTo(new ArrayInteger("0"))) {
-                i = ArrayInteger.add(i, new ArrayInteger("1")); // keeping track of the number of times it is looping
+                i++; // keeping track of the number of times it is looping
             }
 
         }
@@ -97,18 +98,11 @@ public class ArrayInteger {
             remainder = ArrayInteger.add(remainder, denominator);
         }
 
-        ArrayInteger[] divisor_and_remainder = { i, remainder };
+        int[] divisor_and_remainder = { i, Integer.parseInt(remainder.toString()) };
         return divisor_and_remainder;
     }
 
     public static ArrayInteger divide(ArrayInteger numerator, ArrayInteger denominator) {
-        int numeratorOriginalSign = numerator.sign;
-        int denominatorOriginalSign = denominator.sign;
-
-        // setting both num and denom to +ve and will switch back to normal at the end
-        numerator.sign = 1;
-        denominator.sign = 1;
-
         String answer = ""; // integer answer for division
         String currMod = String.valueOf(numerator.digits.get(numerator.digits.size() - 1));
         ArrayInteger currentNumerator;
@@ -116,46 +110,25 @@ public class ArrayInteger {
         // starts from -2 since have already taken the last item
         for (int i = numerator.digits.size() - 2; i >= -1; i--) {
             currentNumerator = new ArrayInteger(currMod);
-            ArrayInteger[] division = ArrayInteger.divideInternal(currentNumerator, denominator);
+            int[] division = ArrayInteger.divideInternal(currentNumerator, denominator);
             // testing
             // System.out.println(Arrays.toString(division));
-
-            // only adds if it is not trying to add a 0 to the start
-            if (!(division[0].toString().equals("0") && answer.length() == 0)) {
+            if (division[0] != 0) {
                 answer = answer + division[0];
             }
 
-            currMod = division[1].toString();
-            // currMod = String.valueOf(division[1]);
+            currMod = String.valueOf(division[1]);
             // protects against trying to access outside bounds
             if (i >= 0) {
                 currMod = currMod + String.valueOf(numerator.digits.get(i));
             }
         }
 
-        // setting back num and denom to normal
-        numerator.sign = numeratorOriginalSign;
-        denominator.sign = denominatorOriginalSign;
-
-        // checking to see if the division should be 0
-        if (answer.length() == 0) {
-            answer = "0";
-        }
-
-        ArrayInteger result = new ArrayInteger(answer);
-        result.sign = numerator.sign * denominator.sign;
-        return result;
+        return new ArrayInteger(answer);
 
     }
 
     public static ArrayInteger modulus(ArrayInteger numerator, ArrayInteger denominator) {
-        int numeratorOriginalSign = numerator.sign;
-        int denominatorOriginalSign = denominator.sign;
-
-        // setting both num and denom to +ve and will switch back to normal at the end
-        numerator.sign = 1;
-        denominator.sign = 1;
-
         String answer = ""; // integer answer for division
         String currMod = String.valueOf(numerator.digits.get(numerator.digits.size() - 1));
         ArrayInteger currentNumerator;
@@ -163,15 +136,14 @@ public class ArrayInteger {
         // starts from -2 since have already taken the last item
         for (int i = numerator.digits.size() - 2; i >= -1; i--) {
             currentNumerator = new ArrayInteger(currMod);
-            ArrayInteger[] division = ArrayInteger.divideInternal(currentNumerator, denominator);
+            int[] division = ArrayInteger.divideInternal(currentNumerator, denominator);
             // testing
             // System.out.println(Arrays.toString(division));
-            if (!(division[0].toString().equals("0") && answer.length() == 0)) {
+            if (division[0] != 0) {
                 answer = answer + division[0];
             }
 
-            currMod = division[1].toString();
-            // currMod = String.valueOf(division[1]);
+            currMod = String.valueOf(division[1]);
             // protects against trying to access outside bounds
             if (i >= 0) {
                 currMod = currMod + String.valueOf(numerator.digits.get(i));
@@ -181,73 +153,8 @@ public class ArrayInteger {
             // System.out.println(currMod);
         }
 
-        // setting back num and denom to normal
-        numerator.sign = numeratorOriginalSign;
-        denominator.sign = denominatorOriginalSign;
+        return new ArrayInteger(currMod);
 
-        ArrayInteger result = new ArrayInteger(currMod);
-        // result.sign = numerator.sign * denominator.sign;
-        // determine whether the mod will be +ve or negative based on the sign of the
-        // numerator
-        if (numerator.sign == -1) {
-            result.sign = -1;
-        } else {
-            result.sign = 1;
-        }
-        return result;
-
-    }
-
-    public static ArrayInteger multiplicationInternal(ArrayInteger num, int multiplier, int numTens) {
-        // This will just repeat addition for multiplier times
-        // Due to the way that I am implementing multiplication, the highest multiplier
-        // will be is 9 so I can put it into a for loop
-        ArrayInteger answer = new ArrayInteger("0"); // not using num since it will change the original copy
-        if (multiplier != 0) {
-            for (int i = 0; i < multiplier; i++) {
-                answer = ArrayInteger.add(answer, num); // add the number again and again tp build up the answer
-            }
-
-            for (int i = 0; i < numTens; i++) {
-                answer.digits.add(0, 0); // pad with 0s depending on how many times it needs to be put to the power of
-                                         // 10
-            }
-        }
-
-        return answer;
-    }
-
-    public static ArrayInteger multiplication(ArrayInteger num, ArrayInteger multiplier) {
-
-        ArrayInteger result = new ArrayInteger("0"); // start the result as 0 and keep adding the results of multiplying
-                                                     // each part
-
-        // find the smaller number (larger or smaller)
-        // if smaller > larger then call multiplication again passing it with parameters
-        // swapped around
-        if (multiplier.isLargerThan(num)) {
-            return multiplication(multiplier, num);
-        }
-
-        int numOriginalSign = num.sign;
-        int multiplierOriginalSign = multiplier.sign;
-
-        // setting both to 1 to ensure normal multiplication - will switch back after
-        num.sign = 1;
-        multiplier.sign = 1;
-
-        for (int i = 0; i < multiplier.digits.size(); i++) {
-            result = ArrayInteger.add(result, ArrayInteger.multiplicationInternal(num, multiplier.digits.get(i), i));
-            // testing
-            // System.out.println("multiplier: " + multiplier.digits.get(i) + " result of
-            // multiplying: " + result);
-        }
-
-        num.sign = numOriginalSign;
-        multiplier.sign = multiplierOriginalSign;
-
-        result.sign = num.sign * multiplier.sign;
-        return result;
     }
 
     public static ArrayInteger subtract(ArrayInteger curr, ArrayInteger subtractor) {
