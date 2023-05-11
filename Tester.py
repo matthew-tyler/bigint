@@ -15,10 +15,10 @@ else:
 
 PROGRAM = "./bin/rational_thinking"
 CMD = "test"
-OPPERAND = "*"
+OPERAND = "*"
 
 # Number of test cases
-num_tests = 100
+num_tests = 100000
 
 # Generate random numbers for the test cases
 test_cases = [(random.randint(-1000000, 1000000000),
@@ -29,9 +29,9 @@ answers = []
 
 input_data = f""
 for num1, num2 in test_cases:
-    input_data += f"{num1} {OPPERAND} {num2}\n"
+    input_data += f"{num1} {OPERAND} {num2}\n"
 
-    match OPPERAND:
+    match OPERAND:
         case "+":
             answers.append(num1 + num2)
         case "-":
@@ -57,11 +57,11 @@ if process.returncode == 0:
             if int(cpp_output) != answer:
                 all_correct = False
                 print(
-                    f"Test case {i}: {test_cases[i][0]} {OPPERAND} {test_cases[i][1]} != {cpp_output}, should be {answer}")
+                    f"Test case {i}: {test_cases[i][0]} {OPERAND} {test_cases[i][1]} != {cpp_output}, should be {answer}")
         except ValueError:
             all_correct = False
             print(
-                f"Test case {i}: {test_cases[i][0]} {OPPERAND} {test_cases[i][1]} cannot be parsed, output was {cpp_output}")
+                f"Test case {i}: {test_cases[i][0]} {OPERAND} {test_cases[i][1]} cannot be parsed, output was {cpp_output}")
 
     if all_correct:
         print("PASS")
