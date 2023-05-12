@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Rational_POC",
+            "request": "launch",
+            "mainClass": "Rational_POC",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Modulus_testing",
             "request": "launch",
             "mainClass": "Modulus_testing",
