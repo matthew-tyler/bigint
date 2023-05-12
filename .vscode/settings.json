@@ -65,5 +65,10 @@
         "random": "cpp",
         "tuple": "cpp",
         "fstream": "cpp"
-    }
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    "python.formatting.provider": "none",
+    "java.debug.settings.onBuildFailureProceed": true
 }

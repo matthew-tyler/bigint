@@ -72,31 +72,12 @@ int main(int argc, char const *argv[])
         return 0;
     }
 
-    Integer t("241575589");
-    Integer t2("-893718034");
-    std::cout << t << " - " << t2 << std::endl;
-    Integer output = t - t2;
+    Integer t("454911272");
+    Integer t2("671377");
+    // 30541696506154
+    Integer output = t * t2;
+
     std::cout << output << std::endl;
 
-    int v = 5;
-
-    int d = -5;
-
-    std::cout << v << std::endl;
-    std::cout << +v << std::endl;
-
-    std::cout << +d << std::endl;
-
-    // t = Integer("54081814");
-    // t2 = Integer("-996583778");
-    // std::cout << t << " + " << t2 << std::endl;
-    // output = t + t2;
-    // std::cout << output << std::endl;
-
-    // t = Integer("24315786");
-    // t2 = Integer("-381092136");
-    // std::cout << t << " + " << t2 << std::endl;
-    // output = t + t2;
-    // std::cout << output << std::endl;
     return 0;
 }

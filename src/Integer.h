@@ -24,6 +24,18 @@ namespace cosc326
 
 		Integer &operator=(const Integer &i); // j = i;
 
+		// Prefix increment
+		Integer &operator++();
+
+		// Postfix increment
+		Integer operator++(int);
+
+		// Prefix decrement
+		Integer &operator--();
+
+		// Postfix decrement
+		Integer operator--(int);
+
 		// Unary operators
 		Integer operator-() const; // -j;
 		Integer operator+() const; // +j;
@@ -48,7 +60,6 @@ namespace cosc326
 		friend bool operator!=(const Integer &lhs, const Integer &rhs); // lhs != rhs
 
 		// Binary operators
-		// Removed const for testing. Gotta learn how to do right?
 		friend Integer operator+(const Integer &lhs, const Integer &rhs); // lhs + rhs;
 		friend Integer operator-(const Integer &lhs, const Integer &rhs); // lhs - rhs;
 		friend Integer operator*(const Integer &lhs, const Integer &rhs); // lhs * rhs;
@@ -73,6 +84,11 @@ namespace cosc326
 		// Digits representing a column, in powers of 10, in reverse order.
 		// That is, digits[0] is the 1s column, digits[1] the 10s etc.
 		std::vector<short> digits;
+
+		static std::vector<Integer> divideInternal(const Integer &numerator, const Integer &denominator);
+		static std::vector<Integer> divide(const Integer &numerator, const Integer &denominator);
+
+		static Integer multiplicationInternal(const Integer &num, short multiplier, size_t numTens);
 	};
 
 }
