@@ -40,8 +40,14 @@ namespace cosc326
 		// You may need to make some other functions friends, but do so sparingly.
 		friend bool operator<(const Rational &lhs, const Rational &rhs);
 
+		Integer getNumerator() const;
+		Integer getDenominator() const;
+
 	private:
-		// Can add internal storage or methods here
+		Integer numerator;
+		Integer denominator;
+
+		void standardizeSigns();
 	};
 
 	// Binary operators

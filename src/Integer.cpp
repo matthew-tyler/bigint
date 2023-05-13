@@ -219,7 +219,7 @@ namespace cosc326
 
 				if (currMod.back() == 0)
 				{
-					answer.push_back(0);
+					// answer.push_back(0);
 					currMod.pop_back();
 				}
 				currMod.insert(currMod.begin(), ins);
@@ -236,10 +236,10 @@ namespace cosc326
 
 		Integer out = Integer(resultsign, answer);
 
-		if (resultsign == -1)
-		{
-			out = out - Integer("1");
-		}
+		// if (resultsign == -1)
+		// {
+		// 	out = out - Integer("1");
+		// }
 
 		return {out, Integer(1, currMod)};
 	}

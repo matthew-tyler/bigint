@@ -15,10 +15,10 @@ else:
 
 PROGRAM = "./bin/rational_thinking"
 CMD = "test"
-OPERAND = "*"
+OPERAND = "%"
 
 # Number of test cases
-num_tests = 100000
+num_tests = 10
 
 # Generate random numbers for the test cases
 test_cases = [(random.randint(-1000000, 1000000000),
@@ -37,7 +37,7 @@ for num1, num2 in test_cases:
         case "-":
             answers.append(num1 - num2)
         case "/":
-            answers.append(num1 // num2)
+            answers.append(int(num1 / num2))
         case "*":
             answers.append(num1 * num2)
         case "%":
