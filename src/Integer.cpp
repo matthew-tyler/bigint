@@ -122,16 +122,19 @@ namespace cosc326
 
 	Integer &Integer::operator*=(const Integer &i)
 	{
+		*this = *this * i;
 		return *this;
 	}
 
 	Integer &Integer::operator/=(const Integer &i)
 	{
+		*this = *this / i;
 		return *this;
 	}
 
 	Integer &Integer::operator%=(const Integer &i)
 	{
+		*this = *this % i;
 		return *this;
 	}
 
@@ -235,11 +238,6 @@ namespace cosc326
 		std::reverse(answer.begin(), answer.end());
 
 		Integer out = Integer(resultsign, answer);
-
-		// if (resultsign == -1)
-		// {
-		// 	out = out - Integer("1");
-		// }
 
 		return {out, Integer(1, currMod)};
 	}
@@ -406,7 +404,6 @@ namespace cosc326
 	// Start here
 	Integer operator/(const Integer &lhs, const Integer &rhs)
 	{
-
 		return Integer::divide(lhs, rhs)[0];
 	}
 
@@ -432,6 +429,10 @@ namespace cosc326
 
 	std::istream &operator>>(std::istream &is, Integer &i)
 	{
+		std::string input;
+		is >> input;
+		i = Integer(input);
+
 		return is;
 	}
 
@@ -476,6 +477,12 @@ namespace cosc326
 
 	bool operator==(const Integer &lhs, const Integer &rhs)
 	{
+
+		if (lhs.getDigits().size() == 1 && rhs.getDigits().size() == 1 && lhs.getDigits()[0] == 0 && rhs.getDigits()[0] == 0)
+		{
+
+			return true;
+		}
 		return lhs.sign == rhs.sign && lhs.digits == rhs.digits;
 	}
 
