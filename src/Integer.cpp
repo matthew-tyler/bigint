@@ -321,7 +321,6 @@ namespace cosc326
 
 			for (size_t i = 0; i < numTens; i++)
 			{
-				// answer.digits.push_back(0);
 				answer.digits.insert(answer.digits.begin(), 0);
 			}
 		}
@@ -357,7 +356,6 @@ namespace cosc326
 		return result;
 	}
 
-	// Start here
 	Integer operator/(const Integer &lhs, const Integer &rhs)
 	{
 		return Integer::divide(lhs, rhs)[0];
@@ -447,8 +445,29 @@ namespace cosc326
 
 	Integer gcd(const Integer &a, const Integer &b)
 	{
+		Integer a_c(1, a.getDigits());
+		Integer b_c(1, b.getDigits());
 
-		return a;
+		Integer ZERO("0");
+
+		while ((a_c > ZERO) && (b_c > ZERO))
+		{
+			if (a_c > b_c)
+			{
+				a_c = a_c % b_c;
+			}
+			else
+			{
+				b_c = b_c % a_c;
+			}
+		}
+
+		if (a_c == ZERO)
+		{
+			return b_c;
+		}
+
+		return a_c;
 	}
 
 	bool absGreaterThan(const Integer &lhs, const Integer &rhs)

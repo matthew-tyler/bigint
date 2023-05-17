@@ -5,10 +5,12 @@ namespace cosc326
 
 	Rational::Rational()
 	{
+		// TODO
 	}
 
 	Rational::Rational(const std::string &str)
 	{
+		// TODO
 	}
 
 	Rational::Rational(const Rational &r)
@@ -66,11 +68,13 @@ namespace cosc326
 
 	Rational Rational::operator-() const
 	{
+		// TODO
 		return Rational(*this);
 	}
 
 	Rational Rational::operator+() const
 	{
+		// TODO
 		return Rational(*this);
 	}
 
@@ -171,6 +175,7 @@ namespace cosc326
 	}
 	std::istream &operator>>(std::istream &is, Rational &i)
 	{
+		// TODO
 		return is;
 	}
 
