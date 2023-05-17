@@ -153,6 +153,20 @@ namespace cosc326
 
 	std::ostream &operator<<(std::ostream &os, const Rational &i)
 	{
+		if (i.getNumerator() % i.getDenominator() == Integer("0"))
+		{
+			os << (i.getNumerator() / i.getDenominator());
+			return os;
+		}
+
+		if (Integer(1, i.getNumerator().getDigits()) < Integer(1, i.getDenominator().getDigits()))
+		{
+			os << i.getNumerator() << "/" << +i.getDenominator();
+			return os;
+		}
+
+		os << (i.getNumerator() / i.getDenominator()) << "." << (Integer(1, i.getNumerator().getDigits()) % Integer(1, i.getDenominator().getDigits())) << "/" << i.getDenominator();
+
 		return os;
 	}
 	std::istream &operator>>(std::istream &is, Rational &i)

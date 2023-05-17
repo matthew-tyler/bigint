@@ -21,8 +21,8 @@ public class ArrayAdditionPOC {
         // System.out.println(curr_col_result);
         // System.out.println(carry);
 
-        ArrayInteger num1 = new ArrayInteger("993576994");
-        ArrayInteger num2 = new ArrayInteger("-40383");
+        ArrayInteger num1 = new ArrayInteger("436436");
+        ArrayInteger num2 = new ArrayInteger("-23523");
         BigInteger num1BigInt = new BigInteger(num1.toString());
         BigInteger num2BigInt = new BigInteger(num2.toString());
 

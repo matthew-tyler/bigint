@@ -15,7 +15,7 @@ else:
 
 PROGRAM = "./bin/rational_thinking"
 CMD = "test"
-OPERAND = "/"
+OPERAND = "+"
 
 # Number of test cases
 num_tests = 10000

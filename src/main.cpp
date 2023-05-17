@@ -72,12 +72,12 @@ int main(int argc, char const *argv[])
         return 0;
     }
 
-    Integer t("-0");
-    Integer t2("0");
+    Integer t("-436436");
+    Integer t2("23523");
     // 30541696506154
-    // Integer output = t * t2;
+    Integer output = t % t2;
 
-    std::cout << (t == t2) << std::endl;
+    std::cout << output << std::endl;
 
     return 0;
 }

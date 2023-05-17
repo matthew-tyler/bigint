@@ -32,7 +32,7 @@ namespace cosc326
 
 		for (int i = s.length() - 1; i >= 0; i--)
 		{
-			short digit = s[i] - digit_offset;
+			int_fast8_t digit = s[i] - digit_offset;
 
 			if (0 <= digit && digit <= 9)
 			{
@@ -41,7 +41,7 @@ namespace cosc326
 		}
 	}
 
-	Integer::Integer(const short sign, const std::vector<short> digits) : sign(sign), digits(digits)
+	Integer::Integer(const int_fast8_t sign, const std::vector<int_fast8_t> digits) : sign(sign), digits(digits)
 	{
 	}
 
@@ -49,7 +49,7 @@ namespace cosc326
 	{
 	}
 
-	bool absGreaterThan(const std::vector<short> &lhs, const std::vector<short> &rhs)
+	bool absGreaterThan(const std::vector<int_fast8_t> &lhs, const std::vector<int_fast8_t> &rhs)
 	{
 
 		if (lhs.size() != rhs.size())
@@ -76,26 +76,6 @@ namespace cosc326
 			this->digits = i.getDigits();
 		}
 		return *this;
-	}
-
-	Integer &Integer::operator++()
-	{
-		return *this;
-	}
-
-	Integer Integer::operator++(int)
-	{
-		return *this + Integer("1");
-	}
-
-	Integer &Integer::operator--()
-	{
-		return *this;
-	}
-
-	Integer Integer::operator--(int)
-	{
-		return *this - Integer("1");
 	}
 
 	Integer Integer::operator-() const
@@ -138,36 +118,14 @@ namespace cosc326
 		return *this;
 	}
 
-	std::vector<short> Integer::getDigits() const
+	std::vector<int_fast8_t> Integer::getDigits() const
 	{
 		return this->digits;
 	}
 
-	short Integer::getSign() const
+	int_fast8_t Integer::getSign() const
 	{
 		return this->sign;
-	}
-
-	std::string Integer::debugPrint()
-	{
-
-		std::ostringstream debugString;
-
-		if (this->sign == -1)
-		{
-			debugString << "-";
-		}
-
-		if (this->sign == 1)
-		{
-			debugString << "+";
-		}
-
-		for (short digit : digits)
-		{
-			debugString << digit;
-		}
-		return debugString.str();
 	}
 
 	std::vector<Integer> Integer::divideInternal(const Integer &numerator, const Integer &denominator)
@@ -195,11 +153,11 @@ namespace cosc326
 	std::vector<Integer> Integer::divide(const Integer &numerator, const Integer &denominator)
 	{
 
-		std::vector<short> answer;
-		std::vector<short> currMod = {numerator.getDigits().back()};
+		std::vector<int_fast8_t> answer;
+		std::vector<int_fast8_t> currMod = {numerator.getDigits().back()};
 
-		short numeratorOriginalSign = numerator.sign;
-		short denominatorOriginalSign = denominator.sign;
+		int_fast8_t numeratorOriginalSign = numerator.getSign();
+		int_fast8_t denominatorOriginalSign = denominator.getSign();
 
 		Integer currentNumerator;
 		Integer currentDenominator = Integer(1, denominator.getDigits());
@@ -218,7 +176,7 @@ namespace cosc326
 
 			if (i >= 0)
 			{
-				short ins = numerator.digits[i];
+				int_fast8_t ins = numerator.digits[i];
 
 				if (currMod.back() == 0)
 				{
@@ -234,25 +192,23 @@ namespace cosc326
 			answer.push_back(0);
 		}
 
-		short resultsign = numeratorOriginalSign * denominatorOriginalSign;
+		int_fast8_t resultsign = numeratorOriginalSign * denominatorOriginalSign;
 		std::reverse(answer.begin(), answer.end());
 
-		Integer out = Integer(resultsign, answer);
-
-		return {out, Integer(1, currMod)};
+		return {Integer(resultsign, answer), Integer(numeratorOriginalSign, currMod)};
 	}
 
 	// Start here
 	Integer operator+(const Integer &lhs, const Integer &rhs)
 	{
 
-		std::vector<short> A = lhs.getDigits();
-		short A_SIGN = lhs.getSign();
+		std::vector<int_fast8_t> A = lhs.getDigits();
+		int_fast8_t A_SIGN = lhs.getSign();
 
-		std::vector<short> B = rhs.getDigits();
-		short B_SIGN = rhs.getSign();
+		std::vector<int_fast8_t> B = rhs.getDigits();
+		int_fast8_t B_SIGN = rhs.getSign();
 
-		short result_sign = 1;
+		int_fast8_t result_sign = 1;
 
 		if (absGreaterThan(rhs, lhs)) // |lhs| > |rhs|
 		{
@@ -280,13 +236,13 @@ namespace cosc326
 			result_sign = -1;
 		}
 
-		short carry = 0;
+		int_fast8_t carry = 0;
 
 		for (size_t i = 0; i < B.size(); i++)
 		{
 			// Take the addition of their numbers, multiply the sign so negatives are added correctly
 			// Add the carry from the last addition at the end.
-			short sum = (A[i] * A_SIGN) + ((B[i] * B_SIGN) + carry);
+			int_fast8_t sum = (A[i] * A_SIGN) + ((B[i] * B_SIGN) + carry);
 			// As the carry has been used, set it back to 0
 
 			carry = 0;
@@ -304,7 +260,7 @@ namespace cosc326
 		while (carry != 0)
 		{
 
-			short add;
+			int_fast8_t add;
 			if (index < A.size())
 			{
 				add = (A[index] * A_SIGN) + carry;
@@ -352,13 +308,13 @@ namespace cosc326
 	{
 		return lhs + -rhs;
 	}
-	Integer Integer::multiplicationInternal(const Integer &num, short multiplier, size_t numTens)
+	Integer Integer::multiplicationInternal(const Integer &num, int_fast8_t multiplier, size_t numTens)
 	{
 		Integer answer("0");
 
 		if (multiplier != 0)
 		{
-			for (short i = 0; i < multiplier; i++)
+			for (int_fast8_t i = 0; i < multiplier; i++)
 			{
 				answer = answer + num;
 			}
@@ -386,8 +342,8 @@ namespace cosc326
 			multiplier = Integer(1, lhs.getDigits());
 		}
 
-		short numOriginalSign = lhs.sign;
-		short multiplierOriginalSign = rhs.sign;
+		int_fast8_t numOriginalSign = lhs.getSign();
+		int_fast8_t multiplierOriginalSign = rhs.getSign();
 
 		for (size_t i = 0; i < multiplier.digits.size(); i++)
 		{
@@ -422,7 +378,7 @@ namespace cosc326
 
 		for (int j = i.digits.size() - 1; j >= 0; --j)
 		{
-			os << i.digits[j];
+			os << (int)i.digits[j];
 		}
 		return os;
 	}
@@ -477,10 +433,8 @@ namespace cosc326
 
 	bool operator==(const Integer &lhs, const Integer &rhs)
 	{
-
 		if (lhs.getDigits().size() == 1 && rhs.getDigits().size() == 1 && lhs.getDigits()[0] == 0 && rhs.getDigits()[0] == 0)
 		{
-
 			return true;
 		}
 		return lhs.sign == rhs.sign && lhs.digits == rhs.digits;

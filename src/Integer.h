@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <stdint.h>
 
 namespace cosc326
 {
@@ -18,23 +19,11 @@ namespace cosc326
 		Integer(const Integer &i);	   // Integer j(i);
 		Integer(const std::string &s); // Integer k("123");
 
-		Integer(const short sign, const std::vector<short> digits); //
+		Integer(const int_fast8_t sign, const std::vector<int_fast8_t> digits); //
 
 		~Integer();
 
 		Integer &operator=(const Integer &i); // j = i;
-
-		// Prefix increment
-		Integer &operator++();
-
-		// Postfix increment
-		Integer operator++(int);
-
-		// Prefix decrement
-		Integer &operator--();
-
-		// Postfix decrement
-		Integer operator--(int);
 
 		// Unary operators
 		Integer operator-() const; // -j;
@@ -49,19 +38,12 @@ namespace cosc326
 
 		// lhs < rhs -- a 'friend' means operator isn't a member, but can access the private parts of the class.
 		// You may need to make some other functions friends, but do so sparingly.
-		friend bool operator<(const Integer &lhs, const Integer &rhs);
 
 		// Sparingly....
 		// We can either do this or do a more java esque getter for the internal vector
 		friend bool operator>(const Integer &lhs, const Integer &rhs);	// lhs > rhs
-		friend bool operator<=(const Integer &lhs, const Integer &rhs); // lhs <= rhs
-		friend bool operator>=(const Integer &lhs, const Integer &rhs); // lhs >= rhs
 		friend bool operator==(const Integer &lhs, const Integer &rhs); // lhs == rhs
-		friend bool operator!=(const Integer &lhs, const Integer &rhs); // lhs != rhs
 
-		// Binary operators
-		friend Integer operator+(const Integer &lhs, const Integer &rhs); // lhs + rhs;
-		friend Integer operator-(const Integer &lhs, const Integer &rhs); // lhs - rhs;
 		friend Integer operator*(const Integer &lhs, const Integer &rhs); // lhs * rhs;
 		friend Integer operator/(const Integer &lhs, const Integer &rhs); // lhs / rhs;
 		friend Integer operator%(const Integer &lhs, const Integer &rhs); // lhs % rhs;
@@ -72,25 +54,32 @@ namespace cosc326
 		friend Integer gcd(const Integer &a, const Integer &b); // i = gcd(a, b);
 
 		friend bool absGreaterThan(const Integer &lhs, const Integer &rhs); // |A| > |B|;
-		friend bool absGreaterThan(const std::vector<short> &lhs, const std::vector<short> &rhs);
+		friend bool absGreaterThan(const std::vector<int_fast8_t> &lhs, const std::vector<int_fast8_t> &rhs);
 
-		std::vector<short> getDigits() const;
-		short getSign() const;
-		std::string debugPrint();
+		std::vector<int_fast8_t> getDigits() const;
+		int_fast8_t getSign() const;
 
 	private:
 		// 1 for positive, -1 for negative. This is to make it easy to flip signs during operations with *sign.
-		short sign;
+		int_fast8_t sign;
 		// Digits representing a column, in powers of 10, in reverse order.
 		// That is, digits[0] is the 1s column, digits[1] the 10s etc.
-		std::vector<short> digits;
+		std::vector<int_fast8_t> digits;
 
 		static std::vector<Integer> divideInternal(const Integer &numerator, const Integer &denominator);
 		static std::vector<Integer> divide(const Integer &numerator, const Integer &denominator);
 
-		static Integer multiplicationInternal(const Integer &num, short multiplier, size_t numTens);
+		static Integer multiplicationInternal(const Integer &num, int_fast8_t multiplier, size_t numTens);
 	};
 
+	bool operator<(const Integer &lhs, const Integer &rhs);
+	bool operator<=(const Integer &lhs, const Integer &rhs); // lhs <= rhs
+	bool operator>=(const Integer &lhs, const Integer &rhs); // lhs >= rhs
+	bool operator!=(const Integer &lhs, const Integer &rhs); // lhs != rhs
+
+	// Binary operators
+	Integer operator+(const Integer &lhs, const Integer &rhs); // lhs + rhs;
+	Integer operator-(const Integer &lhs, const Integer &rhs); // lhs - rhs;
 }
 
 #endif
