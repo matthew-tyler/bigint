@@ -41,8 +41,11 @@ public class Rational_POC {
         // System.out.println(real2.equals(real9)); //
 
         // testing addition
-        Rational_Wrapper real1 = new Rational_Wrapper(new BigInteger("-2"), new BigInteger("3"));
-        Rational_Wrapper real2 = new Rational_Wrapper(new BigInteger("-5"), new BigInteger("7"));
+
+        // 630785471 // 642281
+        Rational_Wrapper real1 = new Rational_Wrapper(new BigInteger("630785471"), new BigInteger("642281"));
+        Rational_Wrapper real2 = new Rational_Wrapper(new BigInteger("630785471"),
+                ((new BigInteger("630785471")).add(new BigInteger("642281"))));
 
         // printing out the numbers
         System.out.println("Number 1: " + real1);

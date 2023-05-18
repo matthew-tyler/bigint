@@ -1,4 +1,5 @@
 #include "Integer.h"
+#include "Rational.h"
 #include <iostream>
 #include <string>
 
@@ -9,27 +10,33 @@ void test(const std::string &num1, const std::string &num2, char op)
 
     Integer a(num1);
     Integer b(num2);
+
     Integer result("0");
-
-    // std::cerr << a << " " << op << " " << b << std::endl;
-
-    // std::cerr << result << std::endl;
+    Rational result_r;
 
     switch (op)
     {
     case '+':
         result = a + b;
+        std::cout << result << std::endl;
+        return;
         break;
     case '-':
         result = a - b;
+        std::cout << result << std::endl;
+        return;
         break;
     case '*':
         result = a * b;
+        std::cout << result << std::endl;
+        return;
         break;
     case '/':
         if (b != Integer("0"))
         {
             result = a / b;
+            std::cout << result << std::endl;
+            return;
         }
         else
         {
@@ -41,6 +48,8 @@ void test(const std::string &num1, const std::string &num2, char op)
         if (b != Integer("0"))
         {
             result = a % b;
+            std::cout << result << std::endl;
+            return;
         }
         else
         {
@@ -48,12 +57,31 @@ void test(const std::string &num1, const std::string &num2, char op)
             return;
         }
         break;
+    case 'g':
+        result = gcd(a, b);
+        std::cout << result << std::endl;
+        return;
+        break;
+    case 'p':
+        result_r = (Rational(a, b) + Rational((a), (b + a)));
+        std::cout << result_r << std::endl;
+        break;
+    case 's':
+        result_r = (Rational(a, b) + Rational((a), (b + a)));
+        std::cout << result_r << std::endl;
+        break;
+    case 'm':
+        result_r = (Rational(a, b) + Rational((a), (b + a)));
+        std::cout << result_r << std::endl;
+        break;
+    case 'd':
+        result_r = (Rational(a, b) + Rational((a), (b + a)));
+        std::cout << result_r << std::endl;
+        break;
     default:
         std::cerr << "Error: Invalid operator." << std::endl;
         return;
     }
-
-    std::cout << result << std::endl;
 }
 
 int main(int argc, char const *argv[])
@@ -72,12 +100,12 @@ int main(int argc, char const *argv[])
         return 0;
     }
 
-    Integer t("-436436");
-    Integer t2("23523");
-    // 30541696506154
-    Integer output = t % t2;
+    Rational r1(Integer("-2"), Integer("3"));
+    Rational r2(Integer("-5"), Integer("7"));
 
-    std::cout << output << std::endl;
-
+    std::cout << (r1 + r2) << std::endl;
+    std::cout << (r1 - r2) << std::endl;
+    std::cout << (r1 * r2) << std::endl;
+    std::cout << (r1 / r2) << std::endl;
     return 0;
 }
