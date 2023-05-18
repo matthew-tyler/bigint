@@ -82,20 +82,20 @@ namespace cosc326
 
 		friend Integer gcd(const Integer &a, const Integer &b); ///< Computes greatest common divisor
 
-		friend bool absGreaterThan(const Integer &lhs, const Integer &rhs); ///< Absolute comparison operator
-		friend bool absGreaterThan(const std::vector<int_fast8_t> &lhs, const std::vector<int_fast8_t> &rhs);
+		friend bool abs_greater_than(const Integer &lhs, const Integer &rhs); ///< Absolute comparison operator
+		friend bool abs_greater_than(const std::vector<int_fast8_t> &lhs, const std::vector<int_fast8_t> &rhs);
 
 		/**
 		 * @brief Returns the digits of the integer
 		 * @return The digits of the integer
 		 */
-		std::vector<int_fast8_t> getDigits() const;
+		std::vector<int_fast8_t> get_digits() const;
 
 		/**
 		 * @brief Returns the sign of the integer
 		 * @return The sign of the integer
 		 */
-		int_fast8_t getSign() const;
+		int_fast8_t get_sign() const;
 
 	private:
 		int_fast8_t sign; ///< The sign of the integer, 1 for positive, -1 for negative
@@ -111,7 +111,7 @@ namespace cosc326
 		 * @param denominator The Integer by which the numerator is divided.
 		 * @return A vector of the quotient and remainder.
 		 */
-		static std::vector<Integer> divideInternal(const Integer &numerator, const Integer &denominator);
+		static std::vector<Integer> divide_internal(const Integer &numerator, const Integer &denominator);
 		/**
 		 * @brief Function for division
 		 *
@@ -128,12 +128,12 @@ namespace cosc326
 		 *
 		 * This function is used internally by the Integer class for its multiplication operations.
 		 *
-		 * @param num The Integer to be multiplied.
+		 * @param multiplicand The Integer to be multiplied.
 		 * @param multiplier The factor by which the Integer is multiplied.
-		 * @param numTens The number of trailing zeros in the result.
+		 * @param num_tens The number of trailing zeros in the result.
 		 * @return The product of the multiplication operation.
 		 */
-		static Integer multiplicationInternal(const Integer &num, int_fast8_t multiplier, size_t numTens);
+		static Integer multiplication_internal(const Integer &multiplicand, int_fast8_t multiplier, size_t num_tens);
 	};
 
 	bool operator<(const Integer &lhs, const Integer &rhs);	 ///< Less than operator

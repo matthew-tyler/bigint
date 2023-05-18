@@ -100,12 +100,19 @@ int main(int argc, char const *argv[])
         return 0;
     }
 
-    Rational r1(Integer("-2"), Integer("3"));
-    Rational r2(Integer("-5"), Integer("7"));
+    // Rational r1(Integer("1"), Integer("100"));
+    // Rational r2(Integer("5"), Integer("1"));
 
-    std::cout << (r1 + r2) << std::endl;
-    std::cout << (r1 - r2) << std::endl;
-    std::cout << (r1 * r2) << std::endl;
-    std::cout << (r1 / r2) << std::endl;
+    // std::cout << (r1 + r2) << std::endl;
+    // std::cout << (r1 - r2) << std::endl;
+    // std::cout << (r1 * r2) << std::endl;
+    // std::cout << (r1 / r2) << std::endl;
+
+    Integer t1("500");
+
+    Integer t2("600000");
+
+    Integer ouput = t1 * t2;
+
     return 0;
 }

@@ -1,6 +1,7 @@
 # Rational Thinking
 
-
+Matt Tyler: 1049833
+Rosie Bicknell: 5886555
 
 ## Building and Running
 
@@ -40,4 +41,7 @@ To clean the working directory afterwards:
 ```bash
 make clean
 ```
+
+
+
 

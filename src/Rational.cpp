@@ -104,26 +104,26 @@ namespace cosc326
 
 	Integer Rational::getNumerator() const
 	{
-		return Integer(this->numerator.getSign(), this->numerator.getDigits());
+		return Integer(this->numerator.get_sign(), this->numerator.get_digits());
 	}
 
 	Integer Rational::getDenominator() const
 	{
-		return Integer(this->denominator.getSign(), this->denominator.getDigits());
+		return Integer(this->denominator.get_sign(), this->denominator.get_digits());
 	}
 
 	void Rational::standardizeSigns()
 	{
 
-		if (this->numerator.getSign() != this->denominator.getSign())
+		if (this->numerator.get_sign() != this->denominator.get_sign())
 		{
-			this->numerator = Integer(-1, this->numerator.getDigits());
-			this->denominator = Integer(1, this->denominator.getDigits());
+			this->numerator = Integer(-1, this->numerator.get_digits());
+			this->denominator = Integer(1, this->denominator.get_digits());
 		}
 		else
 		{
-			this->numerator = Integer(1, this->numerator.getDigits());
-			this->denominator = Integer(1, this->denominator.getDigits());
+			this->numerator = Integer(1, this->numerator.get_digits());
+			this->denominator = Integer(1, this->denominator.get_digits());
 		}
 	}
 
@@ -163,13 +163,13 @@ namespace cosc326
 			return os;
 		}
 
-		if (Integer(1, i.getNumerator().getDigits()) < Integer(1, i.getDenominator().getDigits()))
+		if (Integer(1, i.getNumerator().get_digits()) < Integer(1, i.getDenominator().get_digits()))
 		{
 			os << i.getNumerator() << "/" << +i.getDenominator();
 			return os;
 		}
 
-		os << (i.getNumerator() / i.getDenominator()) << "." << (Integer(1, i.getNumerator().getDigits()) % Integer(1, i.getDenominator().getDigits())) << "/" << i.getDenominator();
+		os << (i.getNumerator() / i.getDenominator()) << "." << (Integer(1, i.getNumerator().get_digits()) % Integer(1, i.getDenominator().get_digits())) << "/" << i.getDenominator();
 
 		return os;
 	}
