@@ -80,13 +80,13 @@ namespace cosc326
 		 * @brief Gets the numerator of the Rational
 		 * @return The numerator
 		 */
-		Integer getNumerator() const;
+		Integer get_numerator() const;
 
 		/**
 		 * @brief Gets the denominator of the Rational
 		 * @return The denominator
 		 */
-		Integer getDenominator() const;
+		Integer get_denominator() const;
 
 	private:
 		Integer numerator;	 ///< The numerator of the Rational
@@ -95,7 +95,7 @@ namespace cosc326
 		/**
 		 * @brief Standardizes the signs of the numerator and denominator
 		 */
-		void standardizeSigns();
+		void standardize_signs();
 	};
 
 	// Binary operators

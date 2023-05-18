@@ -15,8 +15,8 @@ namespace cosc326
 
 	Rational::Rational(const Rational &r)
 	{
-		this->numerator = r.getNumerator();
-		this->denominator = r.getDenominator();
+		this->numerator = r.get_numerator();
+		this->denominator = r.get_denominator();
 	}
 
 	Rational::Rational(const Integer &a)
@@ -35,7 +35,7 @@ namespace cosc326
 		this->numerator = a;
 		this->denominator = b;
 
-		standardizeSigns();
+		standardize_signs();
 	}
 
 	Rational::Rational(const Integer &a, const Integer &b, const Integer &c)
@@ -49,7 +49,7 @@ namespace cosc326
 
 		this->numerator = (a * this->denominator) + this->numerator;
 
-		standardizeSigns();
+		standardize_signs();
 	}
 
 	Rational::~Rational()
@@ -60,8 +60,8 @@ namespace cosc326
 	{
 		if (*this != r)
 		{
-			this->numerator = r.getNumerator();
-			this->denominator = r.getDenominator();
+			this->numerator = r.get_numerator();
+			this->denominator = r.get_denominator();
 		}
 		return *this;
 	}
@@ -102,17 +102,17 @@ namespace cosc326
 		return *this;
 	}
 
-	Integer Rational::getNumerator() const
+	Integer Rational::get_numerator() const
 	{
 		return Integer(this->numerator.get_sign(), this->numerator.get_digits());
 	}
 
-	Integer Rational::getDenominator() const
+	Integer Rational::get_denominator() const
 	{
 		return Integer(this->denominator.get_sign(), this->denominator.get_digits());
 	}
 
-	void Rational::standardizeSigns()
+	void Rational::standardize_signs()
 	{
 
 		if (this->numerator.get_sign() != this->denominator.get_sign())
@@ -129,47 +129,47 @@ namespace cosc326
 
 	Rational operator+(const Rational &lhs, const Rational &rhs)
 	{
-		Integer new_numerator = (lhs.getNumerator() * rhs.getDenominator()) + (rhs.getNumerator() * lhs.getDenominator());
-		Integer new_denominator = lhs.getDenominator() * rhs.getDenominator();
+		Integer new_numerator = (lhs.get_numerator() * rhs.get_denominator()) + (rhs.get_numerator() * lhs.get_denominator());
+		Integer new_denominator = lhs.get_denominator() * rhs.get_denominator();
 		return Rational(new_numerator, new_denominator);
 	}
 
 	Rational operator-(const Rational &lhs, const Rational &rhs)
 	{
-		Integer new_numerator = (lhs.getNumerator() * rhs.getDenominator()) - (rhs.getNumerator() * lhs.getDenominator());
-		Integer new_denominator = lhs.getDenominator() * rhs.getDenominator();
+		Integer new_numerator = (lhs.get_numerator() * rhs.get_denominator()) - (rhs.get_numerator() * lhs.get_denominator());
+		Integer new_denominator = lhs.get_denominator() * rhs.get_denominator();
 		return Rational(new_numerator, new_denominator);
 	}
 
 	Rational operator*(const Rational &lhs, const Rational &rhs)
 	{
-		Integer new_numerator = lhs.getNumerator() * rhs.getNumerator();
-		Integer new_denominator = lhs.getDenominator() * rhs.getDenominator();
+		Integer new_numerator = lhs.get_numerator() * rhs.get_numerator();
+		Integer new_denominator = lhs.get_denominator() * rhs.get_denominator();
 		return Rational(new_numerator, new_denominator);
 	}
 
 	Rational operator/(const Rational &lhs, const Rational &rhs)
 	{
-		Integer new_numerator = lhs.getNumerator() * rhs.getDenominator();
-		Integer new_denominator = lhs.getDenominator() * rhs.getNumerator();
+		Integer new_numerator = lhs.get_numerator() * rhs.get_denominator();
+		Integer new_denominator = lhs.get_denominator() * rhs.get_numerator();
 		return Rational(new_numerator, new_denominator);
 	}
 
 	std::ostream &operator<<(std::ostream &os, const Rational &i)
 	{
-		if (i.getNumerator() % i.getDenominator() == Integer("0"))
+		if (i.get_numerator() % i.get_denominator() == Integer("0"))
 		{
-			os << (i.getNumerator() / i.getDenominator());
+			os << (i.get_numerator() / i.get_denominator());
 			return os;
 		}
 
-		if (Integer(1, i.getNumerator().get_digits()) < Integer(1, i.getDenominator().get_digits()))
+		if (Integer(1, i.get_numerator().get_digits()) < Integer(1, i.get_denominator().get_digits()))
 		{
-			os << i.getNumerator() << "/" << +i.getDenominator();
+			os << i.get_numerator() << "/" << +i.get_denominator();
 			return os;
 		}
 
-		os << (i.getNumerator() / i.getDenominator()) << "." << (Integer(1, i.getNumerator().get_digits()) % Integer(1, i.getDenominator().get_digits())) << "/" << i.getDenominator();
+		os << (i.get_numerator() / i.get_denominator()) << "." << (Integer(1, i.get_numerator().get_digits()) % Integer(1, i.get_denominator().get_digits())) << "/" << i.get_denominator();
 
 		return os;
 	}
