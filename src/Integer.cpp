@@ -164,7 +164,7 @@ namespace cosc326
 		Integer current_numerator;
 		Integer current_denominator = Integer(1, denominator.get_digits());
 
-		for (int i = numerator.digits.size() - 2; i >= -1; i--)
+		for (size_t i = numerator.digits.size() - 2; i < numerator.digits.size(); i--)
 		{
 			current_numerator = Integer(1, current_mod);
 			std::vector<Integer> division = divide_internal(current_numerator, current_denominator);
@@ -186,6 +186,14 @@ namespace cosc326
 				}
 				current_mod.insert(current_mod.begin(), ins);
 			}
+		}
+
+		current_numerator = Integer(1, current_mod);
+		std::vector<Integer> division = divide_internal(current_numerator, current_denominator);
+
+		if (!(division[0] == Integer("0") && answer.empty()))
+		{
+			answer.insert(answer.end(), division[0].digits.begin(), division[0].digits.end());
 		}
 
 		if (answer.empty())

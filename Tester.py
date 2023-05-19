@@ -30,14 +30,14 @@ else:
 
 PROGRAM = "./bin/rational_thinking"
 CMD = "test"
-OPERAND = "*"
+OPERAND = "/"
 
 # Number of test cases
 num_tests = 1000
 
 # Generate random numbers for the test cases 
-test_cases = [(random.randint(-100, 100000000),
-               random.randint(-100, 1000)) for _ in range(num_tests)]
+test_cases = [(random.randint(-1000000000, 1000000000),
+               random.randint(-10000000000, 1000000000)) for _ in range(num_tests)]
 
 
 answers = []

@@ -11,7 +11,26 @@ namespace cosc326
 
 	Rational::Rational(const std::string &str)
 	{
-		// TODO
+
+		int denom_index = -1;
+		int num_index = -1;
+
+		int integer_index = -1;
+
+		for (int i = str.size(); i >= 0; i--)
+		{
+			if (str[i] == '/' && denom_index == -1)
+			{
+				denom_index = i;
+			}
+
+			if (str[i] == '.')
+			{
+				num_index = i;
+
+				break;
+			}
+		}
 	}
 
 	Rational::Rational(const Rational &r)
@@ -69,14 +88,12 @@ namespace cosc326
 
 	Rational Rational::operator-() const
 	{
-		// TODO
-		return Rational(*this);
+		return Rational(-(this->numerator), this->denominator);
 	}
 
 	Rational Rational::operator+() const
 	{
-		// TODO
-		return Rational(*this);
+		return *this;
 	}
 
 	Rational &Rational::operator+=(const Rational &r)
