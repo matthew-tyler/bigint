@@ -5,7 +5,8 @@ namespace cosc326
 
 	Rational::Rational()
 	{
-		// TODO
+		this->numerator = Integer("0");
+		this->denominator = Integer("1");
 	}
 
 	Rational::Rational(const std::string &str)
