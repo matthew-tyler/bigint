@@ -43,7 +43,11 @@ public class Rational_POC {
         // testing addition
 
         // 630785471 // 642281
-        //  983.40964304277847/405554047982312, should be 983.65529/642281
+        // 983.40964304277847/405554047982312, should be 983.65529/642281
+
+        Rational_Wrapper r1 = new Rational_Wrapper(new BigInteger("4"), new BigInteger("8"));
+
+        System.out.println(r1);
         Rational_Wrapper real1 = new Rational_Wrapper(new BigInteger("630785471"), new BigInteger("642281"));
         Rational_Wrapper real2 = new Rational_Wrapper(new BigInteger("630785471"),
                 ((new BigInteger("630785471")).add(new BigInteger("642281"))));

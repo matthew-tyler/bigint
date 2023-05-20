@@ -108,13 +108,13 @@ int main(int argc, char const *argv[])
     // std::cout << -(r1 * r2) << std::endl;
     // std::cout << -(r1 / r2) << std::endl;
 
-    Rational r("1.838/34");
+    Rational r("1");
 
-    Rational r2(Integer("1"), Integer("838"), Integer("34"));
+    // Rational r2(Integer("1"), Integer("838"), Integer("34"));
 
     std::cout << r << std::endl;
 
-    std::cout << r2 << std::endl;
+    // std::cout << r2 << std::endl;
 
     // std::cout << +(-5) << std::endl;
 

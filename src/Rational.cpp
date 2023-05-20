@@ -222,7 +222,11 @@ namespace cosc326
 	}
 	std::istream &operator>>(std::istream &is, Rational &i)
 	{
-		// TODO
+		std::string inputString;
+		is >> inputString;
+
+		i = Rational(inputString);
+
 		return is;
 	}
 
