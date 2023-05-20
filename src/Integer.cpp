@@ -367,11 +367,19 @@ namespace cosc326
 
 	Integer operator/(const Integer &lhs, const Integer &rhs)
 	{
+		if (rhs == Integer("0"))
+		{
+			throw std::invalid_argument("Denominator cannot be zero");
+		}
 		return Integer::divide(lhs, rhs)[0];
 	}
 
 	Integer operator%(const Integer &lhs, const Integer &rhs)
 	{
+		if (rhs == Integer("0"))
+		{
+			throw std::invalid_argument("Denominator cannot be zero");
+		}
 		return Integer::divide(lhs, rhs)[1];
 	}
 

@@ -2,6 +2,7 @@
 #include "Rational.h"
 #include <iostream>
 #include <string>
+#include <sstream>
 
 using namespace cosc326;
 
@@ -108,13 +109,21 @@ int main(int argc, char const *argv[])
     // std::cout << -(r1 * r2) << std::endl;
     // std::cout << -(r1 / r2) << std::endl;
 
-    Rational r("1");
+    std::stringstream testStream;
 
-    // Rational r2(Integer("1"), Integer("838"), Integer("34"));
+    // put a rational string into the stream
+    testStream << "3.1/2";
 
+    // create a Rational instance
+    cosc326::Rational r;
+
+    // use the extraction operator to read the rational from the stream
+    testStream >> r;
+
+    // print the rational to verify that it was read correctly
     std::cout << r << std::endl;
 
-    // std::cout << r2 << std::endl;
+     // std::cout << r2 << std::endl;
 
     // std::cout << +(-5) << std::endl;
 

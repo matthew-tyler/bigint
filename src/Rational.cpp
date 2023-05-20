@@ -54,6 +54,11 @@ namespace cosc326
 			numerator = (Integer(1, integer_portion.get_digits()) * denominator) + numerator;
 		}
 
+		if (denominator == Integer("0"))
+		{
+			throw std::invalid_argument("Denominator cannot be zero");
+		}
+
 		this->numerator = Integer(sign, numerator.get_digits());
 		this->denominator = denominator;
 
