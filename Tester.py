@@ -17,6 +17,7 @@ def print_rational(r: Fraction):
         sign = "-" if r.numerator < 0 else ""
         return sign + str(whole_part) + "." + str(numerator) + "/" + str(r.denominator)
 
+
 compile_process = subprocess.Popen(
     "make", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 stdout, stderr = compile_process.communicate()
@@ -30,12 +31,12 @@ else:
 
 PROGRAM = "./bin/rational_thinking"
 CMD = "test"
-OPERAND = "/"
+OPERAND = "g"
 
 # Number of test cases
-num_tests = 1000
+num_tests = 100
 
-# Generate random numbers for the test cases 
+# Generate random numbers for the test cases
 test_cases = [(random.randint(-1000000000, 1000000000),
                random.randint(-10000000000, 1000000000)) for _ in range(num_tests)]
 
@@ -56,26 +57,26 @@ for num1, num2 in test_cases:
         case "*":
             answers.append(num1 * num2)
         case "%":
-            answers.append(int(maths.fmod(num1, num2))) # Same as int % int in C++. 
-        case "g": # short for GCD
-            answers.append(maths.gcd(num1,num2))
+            # Same as int % int in C++.
+            answers.append(int(maths.fmod(num1, num2)))
+        case "g":  # short for GCD
+            answers.append(maths.gcd(num1, num2))
         case "p":
-            r1 = Fraction(num1,num2)
-            r2 = Fraction((num1),(num2 + num1))
+            r1 = Fraction(num1, num2)
+            r2 = Fraction((num1), (num2 + num1))
             answers.append(print_rational((r1 + r2)))
         case "s":
-            r1 = Fraction(num1,num2)
-            r2 = Fraction((num1),(num2 + num1))
+            r1 = Fraction(num1, num2)
+            r2 = Fraction((num1), (num2 + num1))
             answers.append(print_rational((r1 - r2)))
         case "m":
-            r1 = Fraction(num1,num2)
-            r2 = Fraction((num1),(num2 + num1))
+            r1 = Fraction(num1, num2)
+            r2 = Fraction((num1), (num2 + num1))
             answers.append(print_rational((r1 * r2)))
         case "d":
-            r1 = Fraction(num1,num2)
-            r2 = Fraction((num1),(num2 + num1))
+            r1 = Fraction(num1, num2)
+            r2 = Fraction((num1), (num2 + num1))
             answers.append(print_rational((r1 / r2)))
-
 
 
 process = subprocess.Popen([PROGRAM, CMD], stdin=subprocess.PIPE,

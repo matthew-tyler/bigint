@@ -166,6 +166,7 @@ namespace cosc326
 
 		for (size_t i = numerator.digits.size() - 2; i < numerator.digits.size(); i--)
 		{
+
 			current_numerator = Integer(1, current_mod);
 			std::vector<Integer> division = divide_internal(current_numerator, current_denominator);
 
@@ -190,6 +191,7 @@ namespace cosc326
 
 		current_numerator = Integer(1, current_mod);
 		std::vector<Integer> division = divide_internal(current_numerator, current_denominator);
+		current_mod = division[1].get_digits();
 
 		if (!(division[0] == Integer("0") && answer.empty()))
 		{

@@ -100,14 +100,35 @@ int main(int argc, char const *argv[])
         return 0;
     }
 
-    Rational r1(Integer("1"), Integer("100"));
-    Rational r2(Integer("5"), Integer("1"));
+    // Rational r1(Integer("1"), Integer("100"));
+    // Rational r2(Integer("5"), Integer("1"));
 
-    std::cout << -(r1 + r2) << std::endl;
-    std::cout << -(r1 - r2) << std::endl;
-    std::cout << -(r1 * r2) << std::endl;
-    std::cout << -(r1 / r2) << std::endl;
+    // std::cout << -(r1 + r2) << std::endl;
+    // std::cout << -(r1 - r2) << std::endl;
+    // std::cout << -(r1 * r2) << std::endl;
+    // std::cout << -(r1 / r2) << std::endl;
 
+    Rational r("1.838/34");
+
+    Rational r2(Integer("1"), Integer("838"), Integer("34"));
+
+    std::cout << r << std::endl;
+
+    std::cout << r2 << std::endl;
+
+    // std::cout << +(-5) << std::endl;
+
+    // std::cout << (57470567147 / 2) << "." << (57470567147 % 2) << "/" << 2 << std::endl;
+
+    // Integer t3("28735283573");
+
+    // Integer t1("57470567147");
+
+    // Integer t2("2");
+
+    // std::cout << (t1 / t2) << "." << (t1 % t2) << "/" << t2 << std::endl;
+
+    // std::cout << (t3 * t2) + t2 << std::endl;
     // Integer t1("500");
 
     // Integer t2("600000");

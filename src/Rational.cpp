@@ -13,9 +13,7 @@ namespace cosc326
 	{
 
 		int denom_index = -1;
-		int num_index = -1;
-
-		int integer_index = -1;
+		int num_index = 0;
 
 		for (int i = str.size(); i >= 0; i--)
 		{
@@ -27,10 +25,39 @@ namespace cosc326
 			if (str[i] == '.')
 			{
 				num_index = i;
-
 				break;
 			}
 		}
+
+		Integer numerator("0");
+		Integer denominator("1");
+		Integer integer_portion("0");
+
+		int_fast8_t sign = 1;
+
+		if (denom_index != -1)
+		{
+			denominator = Integer(str.substr(denom_index));
+		}
+
+		numerator = Integer(str.substr(num_index, (denom_index - num_index)));
+
+		if (num_index > 0)
+		{
+			integer_portion = Integer(str.substr(0, num_index));
+
+			if (integer_portion < Integer("0"))
+			{
+				sign = -1;
+			}
+
+			numerator = (Integer(1, integer_portion.get_digits()) * denominator) + numerator;
+		}
+
+		this->numerator = Integer(sign, numerator.get_digits());
+		this->denominator = denominator;
+
+		standardize_signs();
 	}
 
 	Rational::Rational(const Rational &r)
@@ -183,7 +210,9 @@ namespace cosc326
 
 		if (Integer(1, i.get_numerator().get_digits()) < Integer(1, i.get_denominator().get_digits()))
 		{
-			os << i.get_numerator() << "/" << +i.get_denominator();
+			Integer gcd_value = gcd(i.get_numerator(), i.get_denominator());
+
+			os << (i.get_numerator() / gcd_value) << "/" << (i.get_denominator() / gcd_value);
 			return os;
 		}
 
