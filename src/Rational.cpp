@@ -221,7 +221,11 @@ namespace cosc326
 			return os;
 		}
 
-		os << (i.get_numerator() / i.get_denominator()) << "." << (Integer(1, i.get_numerator().get_digits()) % Integer(1, i.get_denominator().get_digits())) << "/" << i.get_denominator();
+		Integer t = (Integer(1, i.get_numerator().get_digits()) % Integer(1, i.get_denominator().get_digits()));
+
+		Integer gcd_value = gcd(t, i.get_denominator());
+
+		os << (i.get_numerator() / i.get_denominator()) << "." << (t / gcd_value) << "/" << (i.get_denominator() / gcd_value);
 
 		return os;
 	}

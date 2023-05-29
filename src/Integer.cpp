@@ -409,7 +409,7 @@ namespace cosc326
 
 	bool operator<(const Integer &lhs, const Integer &rhs)
 	{
-		return !(lhs > rhs);
+		return !(lhs >= rhs);
 	}
 
 	bool operator>(const Integer &lhs, const Integer &rhs)

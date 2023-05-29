@@ -101,29 +101,32 @@ int main(int argc, char const *argv[])
         return 0;
     }
 
-    // Rational r1(Integer("1"), Integer("100"));
-    // Rational r2(Integer("5"), Integer("1"));
+    Rational r4("0.30/7");
 
-    // std::cout << -(r1 + r2) << std::endl;
+    Rational r6("-3.2/4");
+
+    std::cout << (r4) << std::endl;
+    std::cout << (r6) << std::endl;
+
     // std::cout << -(r1 - r2) << std::endl;
     // std::cout << -(r1 * r2) << std::endl;
     // std::cout << -(r1 / r2) << std::endl;
 
-    std::stringstream testStream;
+    // std::stringstream testStream;
 
-    // put a rational string into the stream
-    testStream << "3.1/2";
+    // // put a rational string into the stream
+    // testStream << "3.1/2";
 
-    // create a Rational instance
-    cosc326::Rational r;
+    // // create a Rational instance
+    // cosc326::Rational r;
 
-    // use the extraction operator to read the rational from the stream
-    testStream >> r;
+    // // use the extraction operator to read the rational from the stream
+    // testStream >> r;
 
-    // print the rational to verify that it was read correctly
-    std::cout << r << std::endl;
+    // // print the rational to verify that it was read correctly
+    // std::cout << r << std::endl;
 
-     // std::cout << r2 << std::endl;
+    // std::cout << r2 << std::endl;
 
     // std::cout << +(-5) << std::endl;
 
