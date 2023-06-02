@@ -101,51 +101,25 @@ int main(int argc, char const *argv[])
         return 0;
     }
 
-    Rational r4("0.30/7");
+    // std::vector<int_fast8_t> digits(INT32_MAX);
+
+    // std::vector<int_fast8_t> digits_two(INT32_MAX);
+
+    // for (int i = 0; i < INT32_MAX; i++)
+    // {
+    //     digits[i] = (rand() % 10);
+    //     digits_two[i] = (rand() % 10);
+    // }
+
+    // Integer test(1, digits);
+    // Integer test_two(1, digits_two);
+
+    // Integer result = test + test_two;
+    // std::cout << result << std::endl;
+    Rational r4("0.1/3");
 
     Rational r6("-3.2/4");
 
-    std::cout << (r4) << std::endl;
-    std::cout << (r6) << std::endl;
-
-    // std::cout << -(r1 - r2) << std::endl;
-    // std::cout << -(r1 * r2) << std::endl;
-    // std::cout << -(r1 / r2) << std::endl;
-
-    // std::stringstream testStream;
-
-    // // put a rational string into the stream
-    // testStream << "3.1/2";
-
-    // // create a Rational instance
-    // cosc326::Rational r;
-
-    // // use the extraction operator to read the rational from the stream
-    // testStream >> r;
-
-    // // print the rational to verify that it was read correctly
-    // std::cout << r << std::endl;
-
-    // std::cout << r2 << std::endl;
-
-    // std::cout << +(-5) << std::endl;
-
-    // std::cout << (57470567147 / 2) << "." << (57470567147 % 2) << "/" << 2 << std::endl;
-
-    // Integer t3("28735283573");
-
-    // Integer t1("57470567147");
-
-    // Integer t2("2");
-
-    // std::cout << (t1 / t2) << "." << (t1 % t2) << "/" << t2 << std::endl;
-
-    // std::cout << (t3 * t2) + t2 << std::endl;
-    // Integer t1("500");
-
-    // Integer t2("600000");
-
-    // Integer ouput = t1 * t2;
-
+    std::cout << r4 << " " << r6 << " " << std::endl;
     return 0;
 }
